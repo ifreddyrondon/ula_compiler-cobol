@@ -1,0 +1,10 @@
+TOK_SOURCE_COMPUTER : Ordenador donde se escribi— el fuente
+Debe de ser una solo palabra
+arreglado por la gramatica
+
+
+TOK_OBJECT_COMPUTER :  Ordenador donde se ejecuta el objeto
+Debe de ser una solo palabra
+arreglado por la gramatica
+
+

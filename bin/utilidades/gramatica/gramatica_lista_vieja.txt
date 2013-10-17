@@ -1,0 +1,984 @@
+cobol_source_program  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) PALABRA_RESERVADA DELIMITADOR program_id_cobol_source_program [ identification_division_content ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR environment_division_content ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR data_division_content ] [ procedure_division ] [ { nested_cobol_source_program }* PALABRA_RESERVADA PALABRA_RESERVADA program_name DELIMITADOR ]
+
+
+program_id_cobol_source_program  ::=  PALABRA_RESERVADA [ DELIMITADOR ] program_name [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] [ DELIMITADOR ]
+
+
+
+nested_cobol_source_program  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) PALABRA_RESERVADA DELIMITADOR program_id_nested_cobol_source_program [ identification_division_content ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR environment_division_content ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR data_division_content ] [ procedure_division ] { nested_cobol_source_program }* PALABRA_RESERVADA PALABRA_RESERVADA program_name DELIMITADOR
+
+
+
+
+program_id_nested_cobol_source_program  ::=  PALABRA_RESERVADA [ DELIMITADOR ] program_name [ [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] | PALABRA_RESERVADA [ PALABRA_RESERVADA ] ) [ PALABRA_RESERVADA ] ] [ DELIMITADOR ]
+
+
+
+
+identification_division_content  ::=  ( [ PALABRA_RESERVADA [ DELIMITADOR ] ] || [ PALABRA_RESERVADA [ DELIMITADOR ] ] || [ PALABRA_RESERVADA [ DELIMITADOR ] ] || [ PALABRA_RESERVADA [ DELIMITADOR ] ] || [ PALABRA_RESERVADA [ DELIMITADOR ] ] )
+
+
+
+environment_division_content  ::=  [ configuration_section ] [ input_output_section ]
+
+
+
+
+configuration_section  ::=  PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR configuration_section_paragraphs
+
+
+
+
+configuration_section_paragraphs  ::=  [ source_computer_paragraph ] [ object_computer_paragraph ] [ special_names_paragraph ]
+
+
+
+
+source_computer_paragraph  ::=  PALABRA_RESERVADA DELIMITADOR [ computer_name [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA ] DELIMITADOR ]
+
+
+
+
+object_computer_paragraph  ::=  PALABRA_RESERVADA DELIMITADOR [ computer_name [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ENTERO ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) ] object_computer_paragraph_sequence_phrase DELIMITADOR ]
+
+
+
+
+object_computer_paragraph_sequence_phrase  ::=  [ [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] alphabet_name ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] PRIORIDAD ]
+
+
+
+
+special_names_paragraph  ::=  PALABRA_RESERVADA DELIMITADOR { ( environment_name [ PALABRA_RESERVADA ] mnemonic_name | environment_name ( [ PALABRA_RESERVADA ] mnemonic_name [ special_names_paragraph_status_phrase ] | special_names_paragraph_status_phrase ) ) }* special_names_paragraph_clauses [ DELIMITADOR ]
+
+
+
+
+special_names_paragraph_clauses  ::=  ( { alphabet_clause }* || { symbolic_characters_clause }* || { class_clause }* || [ currency_sign_clause ] || [ decimal_point_clause ] )
+
+
+
+
+alphabet_clause  ::=  PALABRA_RESERVADA alphabet_name [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | { literal [ ( ( PALABRA_RESERVADA | PALABRA_RESERVADA ) literal | { PALABRA_RESERVADA literal }+ ) ] }+ )
+
+
+
+
+symbolic_characters_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] { { symbolic_character }+ [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ] { ENTERO }+ }+ [ PALABRA_RESERVADA alphabet_name ]
+
+
+
+
+class_clause  ::=  PALABRA_RESERVADA class_name [ PALABRA_RESERVADA ] { literal [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) literal ] }+
+
+
+
+
+currency_sign_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] literal
+
+
+
+
+decimal_point_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] PALABRA_RESERVADA
+
+
+
+
+special_names_paragraph_status_phrase  ::=  ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] condition [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] condition ] | PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] condition [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] condition ] )
+
+
+
+
+input_output_section  ::=  PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR [ file_control_paragraph ] [ i_o_control_paragraph ]
+
+
+
+
+file_control_paragraph  ::=  PALABRA_RESERVADA DELIMITADOR { file_control_entry }*
+
+
+
+
+file_control_entry  ::=  select_clause assign_clause ( [ reserve_clause ] || [ [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] PALABRA_RESERVADA ] || [ padding_character_clause ] || [ record_delimiter_clause ] || [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] PALABRA_RESERVADA ] || [ password_clause ] || [ file_status_clause ] ) DELIMITADOR
+
+file_control_entry  ::=  select_clause assign_clause ( [ reserve_clause ] || [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] PALABRA_RESERVADA || [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA [ relative_key_clause ] | ( PALABRA_RESERVADA | PALABRA_RESERVADA ) relative_key_clause ) ] || [ password_clause ] || [ file_status_clause ] ) DELIMITADOR
+
+file_control_entry  ::=  select_clause assign_clause ( [ reserve_clause ] || [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] PALABRA_RESERVADA || [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) ] || record_key_clause || [ password_clause ] || { alternate_record_key_clause }* || [ file_status_clause ] ) DELIMITADOR
+
+
+
+
+select_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] file_name
+
+
+
+
+assign_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] { ( assignment_name | literal ) }+
+
+
+
+
+reserve_clause  ::=  PALABRA_RESERVADA ENTERO [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ]
+
+
+
+
+padding_character_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] ( qualified_data_name | literal )
+
+
+
+
+record_delimiter_clause  ::=  PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | assignment_name )
+
+
+
+
+record_key_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] qualified_data_name
+
+
+
+
+alternate_record_key_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] qualified_data_name [ password_clause ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ]
+
+
+
+
+relative_key_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] qualified_data_name
+
+
+
+
+password_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] data_name
+
+
+
+
+file_status_clause  ::=  [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] qualified_data_name [ qualified_data_name ]
+
+
+
+
+i_o_control_paragraph  ::=  PALABRA_RESERVADA DELIMITADOR [ { ( qsam_or_sam_i_o_control_entries | vsam_i_o_control_entries ) }+ DELIMITADOR ] [ sort_merge_i_o_control_entries DELIMITADOR ]
+
+
+
+
+qsam_or_sam_i_o_control_entries  ::=  ( PALABRA_RESERVADA PALABRA_RESERVADA ( assignment_name | file_name ) [ PALABRA_RESERVADA ] ( ENTERO PALABRA_RESERVADA | PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ) [ PALABRA_RESERVADA ] file_name | PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] file_name { file_name }+ | PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] { file_name [ PALABRA_RESERVADA ENTERO ] }+ | PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] { file_name }+ )
+
+
+
+
+vsam_i_o_control_entries  ::=  ( PALABRA_RESERVADA PALABRA_RESERVADA ( assignment_name | file_name ) [ PALABRA_RESERVADA ] ENTERO PALABRA_RESERVADA [ PALABRA_RESERVADA ] file_name | PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] file_name { file_name }+ )
+
+
+
+
+sort_merge_i_o_control_entries  ::=  [ PALABRA_RESERVADA PALABRA_RESERVADA assignment_name ] { PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] file_name { file_name }+ }+
+
+
+
+
+data_division_content  ::=  [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR { file_and_sort_description_entry { record_description_entry }+ }* ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR { ( record_description_entry | data_item_description_entry ) }* ] [ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR { ( record_description_entry | data_item_description_entry ) }* ]
+
+
+
+
+data_item_description_entry  ::=  data_description_entry
+
+
+
+
+record_description_entry  ::=  data_description_entry
+
+
+
+
+file_and_sort_description_entry  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) file_name file_and_sort_description_entry_clauses DELIMITADOR
+
+
+
+
+file_and_sort_description_entry_clauses  ::=  ( [ external_clause ] || [ global_clause ] || [ block_contains_clause ] || [ record_clause ] || [ label_records_clause ] || [ value_of_clause ] || [ data_records_clause ] || [ linage_clause ] || [ recording_mode_clause ] || [ code_set_clause ] )
+
+
+
+
+external_clause  ::=  [ PALABRA_RESERVADA ] PALABRA_RESERVADA
+
+
+
+
+global_clause  ::=  [ PALABRA_RESERVADA ] PALABRA_RESERVADA
+
+
+
+
+block_contains_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ ( ENTERO | CERO ) PALABRA_RESERVADA ] ( ENTERO | CERO ) [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ]
+
+
+
+
+record_clause  ::=  PALABRA_RESERVADA ( [ PALABRA_RESERVADA ] ( ENTERO | CERO ) [ PALABRA_RESERVADA ] | [ PALABRA_RESERVADA ] ( ENTERO | CERO ) PALABRA_RESERVADA ( ENTERO | CERO ) [ PALABRA_RESERVADA ] | record_varying_phrase [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] data_name ] )
+
+
+
+
+record_varying_phrase  ::=  [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] [ [ PALABRA_RESERVADA ] ENTERO ] [ PALABRA_RESERVADA ENTERO ] [ PALABRA_RESERVADA ]
+
+
+
+
+label_records_clause  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] | PALABRA_RESERVADA [ PALABRA_RESERVADA ] ) ( PALABRA_RESERVADA | PALABRA_RESERVADA | { data_name }+ )
+
+
+
+
+value_of_clause  ::=  PALABRA_RESERVADA PALABRA_RESERVADA { IDENTIFICADOR [ PALABRA_RESERVADA ] ( qualified_data_name | literal ) }+
+
+
+
+
+data_records_clause  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] | PALABRA_RESERVADA [ PALABRA_RESERVADA ] ) { data_name }+
+
+
+
+
+linage_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( data_name | ENTERO ) [ PALABRA_RESERVADA ] linage_footing_phrase
+
+
+
+
+linage_footing_phrase  ::=  [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( data_name | ENTERO ) ] [ [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] PALABRA_RESERVADA ( data_name | ENTERO ) ] [ [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] PALABRA_RESERVADA ( data_name | ENTERO ) ]
+
+
+
+
+recording_mode_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] mode
+
+
+
+
+code_set_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] alphabet_name
+
+
+
+
+data_description_entry   ::=    PRIORIDAD [ ( data_name | PALABRA_RESERVADA ) ] data_description_entry_clauses DELIMITADOR
+
+data_description_entry  ::=  PRIORIDAD data_name renames_clause DELIMITADOR
+
+data_description_entry  ::=  PRIORIDAD condition_name condition_value_clause DELIMITADOR
+
+
+
+
+data_description_entry_clauses  ::=  ( [ redefines_clause ] || [ blank_when_zero_clause ] || [ external_clause ] || [ global_clause ] || [ justified_clause ] || [ occurs_clause ] || [ picture_clause ] || [ sign_clause ] || [ synchronized_clause ] || [ usage_clause ] || [ data_value_clause ] )
+
+
+
+
+redefines_clause  ::=  PALABRA_RESERVADA data_name
+
+
+
+
+blank_when_zero_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+justified_clause  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ]
+
+
+
+
+occurs_clause  ::=  PALABRA_RESERVADA ENTERO [ PALABRA_RESERVADA ] { ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] { qualified_data_name }+ }* [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] { index_name }+ ]
+
+occurs_clause  ::=  PALABRA_RESERVADA [ ( ENTERO | CERO ) PALABRA_RESERVADA ] ENTERO [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] qualified_data_name { ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] { qualified_data_name }+ }* [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] { index_name }+ ]
+
+
+
+
+
+sign_clause  ::=  [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ]
+
+
+
+
+synchronized_clause  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ]
+
+
+
+
+usage_clause  ::=  [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+condition_value_clause  ::=  ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] | PALABRA_RESERVADA [ PALABRA_RESERVADA ] ) { literal [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) literal ] }+
+
+
+
+
+data_value_clause  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] literal
+
+
+
+
+renames_clause  ::=  PALABRA_RESERVADA qualified_data_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) qualified_data_name ]
+
+
+
+
+procedure_division  ::=  PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA { data_name }+ ] DELIMITADOR [ PALABRA_RESERVADA DELIMITADOR { section_header DELIMITADOR use_statement DELIMITADOR paragraphs }+ PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR ] sections
+
+procedure_division  ::=  PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA { data_name }+ ] DELIMITADOR paragraphs
+
+
+
+
+sections  ::=  paragraphs { section_header DELIMITADOR paragraphs }*
+
+
+
+
+section_header  ::=  section_name PALABRA_RESERVADA [ PRIORIDAD ]
+
+
+
+
+paragraphs  ::=  { sentence }* { paragraph }*
+
+
+
+
+paragraph  ::=  paragraph_name DELIMITADOR { sentence }*
+
+paragraph  ::=  altered_goto
+
+
+
+
+sentence  ::=  statement_list DELIMITADOR
+
+
+
+
+statement_list  ::=  { statement }+
+
+
+
+
+statement  ::=  ( accept_statement | add_statement | alter_statement | call_statement | cancel_statement | close_statement | compute_statement | continue_statement | delete_statement | display_statement | divide_statement | entry_statement | evaluate_statement | exit_statement | exit_program_statement | goback_statement | go_to_statement | if_statement | initialize_statement | inspect_statement | merge_statement | move_statement | multiply_statement | open_statement | perform_statement | read_statement | release_statement | return_statement | rewrite_statement | search_statement | set_statement | sort_statement | start_statement | stop_statement | string_statement | subtract_statement | unstring_statement | write_statement )
+
+
+
+
+accept_statement  ::=  PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ( mnemonic_name | environment_name ) ]
+
+accept_statement  ::=  PALABRA_RESERVADA identifier PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+add_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+ PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+add_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+ [ PALABRA_RESERVADA ] ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+add_statement  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) identifier PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+alter_statement  ::=  PALABRA_RESERVADA { procedure_name PALABRA_RESERVADA [ PALABRA_RESERVADA PALABRA_RESERVADA ] procedure_name }+
+
+
+
+
+call_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) [ PALABRA_RESERVADA { ( [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ] { ( identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier | file_name ) }+ | [ PALABRA_RESERVADA ] PALABRA_RESERVADA { ( [ PALABRA_RESERVADA PALABRA_RESERVADA ] identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier | literal ) }+ ) }+ ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+call_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) [ PALABRA_RESERVADA { ( [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ] { ( identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier | file_name ) }+ | [ PALABRA_RESERVADA ] PALABRA_RESERVADA { ( [ PALABRA_RESERVADA PALABRA_RESERVADA ] identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier | literal ) }+ ) }+ ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+cancel_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+
+
+
+
+
+close_statement  ::=  PALABRA_RESERVADA { file_name [ ( ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ ( [ PALABRA_RESERVADA ] PALABRA_RESERVADA | [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA ) ] | [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA PALABRA_RESERVADA | PALABRA_RESERVADA ) ) ] }+
+
+close_statement  ::=  PALABRA_RESERVADA { file_name [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ] }+
+
+
+
+
+compute_statement  ::=  PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ (   ::=   | PALABRA_RESERVADA ) arithmetic_expression [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+continue_statement  ::=  PALABRA_RESERVADA
+
+
+
+
+delete_statement  ::=  PALABRA_RESERVADA file_name [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+display_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+ [ PALABRA_RESERVADA ( mnemonic_name | environment_name ) ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA ]
+
+
+
+
+divide_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+divide_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+divide_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+divide_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ] PALABRA_RESERVADA identifier [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+divide_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ] PALABRA_RESERVADA identifier [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+entry_statement  ::=  PALABRA_RESERVADA literal [ PALABRA_RESERVADA { data_name }+ ]
+
+
+
+
+evaluate_statement  ::=  PALABRA_RESERVADA ( identifier | literal | arithmetic_expression | condition | PALABRA_RESERVADA | PALABRA_RESERVADA ) { PALABRA_RESERVADA ( identifier | literal | arithmetic_expression | condition | PALABRA_RESERVADA | PALABRA_RESERVADA ) }* { { PALABRA_RESERVADA evaluate_phrase { PALABRA_RESERVADA evaluate_phrase }* }+ statement_list }+ [ PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+evaluate_phrase  ::=  ( PALABRA_RESERVADA | condition | PALABRA_RESERVADA | PALABRA_RESERVADA | [ OP_LOGICO ] ( identifier | literal | arithmetic_expression ) [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ( identifier | literal | arithmetic_expression ) ] )
+
+
+
+
+exit_statement  ::=  PALABRA_RESERVADA
+
+
+
+
+exit_program_statement  ::=  PALABRA_RESERVADA PALABRA_RESERVADA
+
+
+
+
+goback_statement  ::=  PALABRA_RESERVADA
+
+
+
+
+go_to_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] procedure_name
+
+go_to_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] PALABRA_RESERVADA
+
+go_to_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] { procedure_name }+ PALABRA_RESERVADA [ PALABRA_RESERVADA ] identifier
+
+
+
+
+altered_goto  ::=  paragraph_name DELIMITADOR PALABRA_RESERVADA [ PALABRA_RESERVADA ] DELIMITADOR
+
+
+
+
+if_statement  ::=  PALABRA_RESERVADA condition [ PALABRA_RESERVADA ] ( { statement }+ | PALABRA_RESERVADA PALABRA_RESERVADA ) [ PALABRA_RESERVADA ( { statement }+ | PALABRA_RESERVADA PALABRA_RESERVADA ) ] [ PALABRA_RESERVADA ]
+
+
+
+
+initialize_statement  ::=  PALABRA_RESERVADA { identifier }+ [ PALABRA_RESERVADA { ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] PALABRA_RESERVADA ( identifier | literal ) }+ ]
+
+
+
+
+inspect_statement  ::=  PALABRA_RESERVADA identifier PALABRA_RESERVADA { identifier PALABRA_RESERVADA { ( PALABRA_RESERVADA { before_after_phrase }* | ( PALABRA_RESERVADA | PALABRA_RESERVADA ) { ( identifier | literal ) { before_after_phrase }* }+ ) }+ }+
+
+inspect_statement  ::=  PALABRA_RESERVADA identifier PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) { before_after_phrase }*
+
+inspect_statement  ::=  PALABRA_RESERVADA identifier PALABRA_RESERVADA { identifier PALABRA_RESERVADA { ( PALABRA_RESERVADA { before_after_phrase }* | ( PALABRA_RESERVADA | PALABRA_RESERVADA ) { ( identifier | literal ) { before_after_phrase }* }+ ) }+ }+ PALABRA_RESERVADA { ( PALABRA_RESERVADA PALABRA_RESERVADA ( identifier | literal ) { before_after_phrase }* | ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) { ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) { before_after_phrase }* }+ ) }+
+
+inspect_statement  ::=  PALABRA_RESERVADA identifier PALABRA_RESERVADA { ( PALABRA_RESERVADA PALABRA_RESERVADA ( identifier | literal ) { before_after_phrase }* | ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) { ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) { before_after_phrase }* }+ ) }+
+
+
+
+
+before_after_phrase  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] ( identifier | literal )
+
+
+
+
+merge_statement  ::=  PALABRA_RESERVADA file_name { [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] { qualified_data_name }+ }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] alphabet_name ] PALABRA_RESERVADA file_name { file_name }+ ( PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] | PALABRA_RESERVADA { file_name }+ )
+
+
+
+
+move_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier }+
+
+move_statement  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) identifier PALABRA_RESERVADA { identifier }+
+
+
+
+
+multiply_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+multiply_statement  ::=  PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+open_statement  ::=  PALABRA_RESERVADA { ( PALABRA_RESERVADA { file_name [ ( PALABRA_RESERVADA | [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA ) ] }+ | PALABRA_RESERVADA { file_name [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA ] }+ | PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA { file_name }+ ) }+
+
+open_statement  ::=  PALABRA_RESERVADA { ( PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA { file_name }+ ) }+
+
+
+
+
+perform_statement  ::=  PALABRA_RESERVADA ( procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] | statement_list PALABRA_RESERVADA )
+
+perform_statement  ::=  PALABRA_RESERVADA ( procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] perform_varying_phrase perform_after_phrase | perform_varying_phrase statement_list PALABRA_RESERVADA )
+
+perform_statement  ::=  PALABRA_RESERVADA ( procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] ( identifier | ENTERO ) PALABRA_RESERVADA | ( identifier | ENTERO ) PALABRA_RESERVADA statement_list PALABRA_RESERVADA )
+
+perform_statement  ::=  PALABRA_RESERVADA ( procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] perform_until_phrase | perform_until_phrase statement_list PALABRA_RESERVADA )
+
+
+
+
+perform_until_phrase  ::=  [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ] PALABRA_RESERVADA condition
+
+
+
+
+perform_varying_phrase  ::=  [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ] PALABRA_RESERVADA ( identifier | index_name ) PALABRA_RESERVADA ( identifier | index_name | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA condition
+
+
+
+
+perform_after_phrase  ::=  { PALABRA_RESERVADA ( identifier | index_name ) PALABRA_RESERVADA ( identifier | index_name | literal ) PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA condition }*
+
+
+
+
+read_statement  ::=  PALABRA_RESERVADA file_name [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA identifier ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+read_statement  ::=  PALABRA_RESERVADA file_name [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] qualified_data_name ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+release_statement  ::=  PALABRA_RESERVADA record_name [ PALABRA_RESERVADA identifier ]
+
+
+
+
+return_statement  ::=  PALABRA_RESERVADA file_name [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+rewrite_statement  ::=  PALABRA_RESERVADA record_name [ PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+search_statement  ::=  PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ( identifier | index_name ) ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] { PALABRA_RESERVADA condition ( statement_list | PALABRA_RESERVADA PALABRA_RESERVADA ) }+ [ PALABRA_RESERVADA ]
+
+search_statement  ::=  PALABRA_RESERVADA PALABRA_RESERVADA identifier [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] PALABRA_RESERVADA ( qualified_data_name [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] |   =   ) ( identifier | literal | arithmetic_expression ) | condition_name_reference ) { OP_LOGICO ( qualified_data_name [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] |   =   ) ( identifier | literal | arithmetic_expression ) | condition_name_reference ) }* ( statement_list | PALABRA_RESERVADA PALABRA_RESERVADA ) [ PALABRA_RESERVADA ]
+
+
+
+
+set_statement  ::=  PALABRA_RESERVADA { ( index_name | identifier ) }+ PALABRA_RESERVADA ( index_name | identifier | ENTERO )
+
+set_statement  ::=  PALABRA_RESERVADA { index_name }+ ( PALABRA_RESERVADA PALABRA_RESERVADA | PALABRA_RESERVADA PALABRA_RESERVADA ) ( identifier | ENTERO )
+
+set_statement  ::=  PALABRA_RESERVADA { { mnemonic_name }+ PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) }+
+
+set_statement  ::=  PALABRA_RESERVADA { condition_name_reference }+ PALABRA_RESERVADA PALABRA_RESERVADA
+
+set_statement  ::=  PALABRA_RESERVADA { ( identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier ) }+ PALABRA_RESERVADA ( identifier | PALABRA_RESERVADA PALABRA_RESERVADA identifier | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+sort_statement  ::=  PALABRA_RESERVADA file_name { [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] { qualified_data_name }+ }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] alphabet_name ] ( PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] ) ( PALABRA_RESERVADA { file_name }+ | PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] procedure_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) procedure_name ] )
+
+
+
+
+start_statement  ::=  PALABRA_RESERVADA file_name [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] |   ::=   | PALABRA_RESERVADA [ PALABRA_RESERVADA ] | OP_RELACION | OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] | OP_LOGICO OP_RELACION | PALABRA_RESERVADA [ PALABRA_RESERVADA ] OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] | ">  =   ) qualified_data_name ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+stop_statement  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA | literal )
+
+
+
+
+string_statement  ::=  PALABRA_RESERVADA { { ( identifier | literal ) }+ PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( identifier | literal | PALABRA_RESERVADA ) }+ PALABRA_RESERVADA identifier [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA identifier ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+subtract_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+ PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+subtract_statement  ::=  PALABRA_RESERVADA { ( identifier | literal ) }+ PALABRA_RESERVADA ( identifier | literal ) PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+subtract_statement  ::=  PALABRA_RESERVADA ( PALABRA_RESERVADA | PALABRA_RESERVADA ) identifier PALABRA_RESERVADA identifier [ PALABRA_RESERVADA ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+unstring_statement  ::=  PALABRA_RESERVADA identifier [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA ] ( identifier | literal ) { OP_LOGICO [ PALABRA_RESERVADA ] ( identifier | literal ) }* ] PALABRA_RESERVADA { identifier [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] identifier ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] identifier ] }+ [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] identifier ] [ [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] PALABRA_RESERVADA statement_list ] [ PALABRA_RESERVADA ]
+
+
+
+
+write_statement  ::=  PALABRA_RESERVADA record_name [ PALABRA_RESERVADA identifier ] ( [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) [ PALABRA_RESERVADA ] ( ( identifier | ENTERO ) [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ] | mnemonic_name | PALABRA_RESERVADA ) ] write_statement_phrase | [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] ) [ PALABRA_RESERVADA ]
+
+write_statement  ::=  PALABRA_RESERVADA record_name [ PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] statement_list ] [ PALABRA_RESERVADA ]
+
+write_statement  ::=  PALABRA_RESERVADA record_name [ PALABRA_RESERVADA identifier ] [ PALABRA_RESERVADA ]
+
+
+
+
+write_statement_phrase  ::=  [ [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) statement_list ] [ OP_LOGICO [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) statement_list ]
+
+
+
+
+compiler_directing_statement  ::=  ( cbl_process_statement | control_cbl_statement | copy_statement | eject_statement | enter_statement | ready_or_reset_trace_statement | replace_statement | replace_statement | service_label_statement | service_reload_statement | skip1_2_3_statement | title_statement | use_statement )
+
+
+
+
+control_cbl_statement  ::=  ( "*CONTROL | "*CBL ) { ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) }+ [ DELIMITADOR ]
+
+
+
+
+copy_statement  ::=  PALABRA_RESERVADA ( text_name | literal ) [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ( library_name | literal ) ] [ PALABRA_RESERVADA ] [ PALABRA_RESERVADA { copy_operand PALABRA_RESERVADA copy_operand }+ ] DELIMITADOR
+
+
+
+
+
+eject_statement  ::=  PALABRA_RESERVADA [ DELIMITADOR ]
+
+
+
+
+enter_statement  ::=  PALABRA_RESERVADA language_name [ routine_name ] DELIMITADOR
+
+
+
+
+
+ready_or_reset_trace_statement  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA ) PALABRA_RESERVADA DELIMITADOR
+
+
+
+
+replace_statement  ::=  PALABRA_RESERVADA { OP_PSEUDO PALABRA_RESERVADA OP_PSEUDO }+ DELIMITADOR
+
+replace_statement  ::=  PALABRA_RESERVADA PALABRA_RESERVADA DELIMITADOR
+
+
+
+
+service_label_statement  ::=  PALABRA_RESERVADA PALABRA_RESERVADA
+
+
+
+
+service_reload_statement  ::=  PALABRA_RESERVADA PALABRA_RESERVADA identifier
+
+
+
+
+skip_statement  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) [ DELIMITADOR ]
+
+
+
+
+title_statement  ::=  PALABRA_RESERVADA literal [ DELIMITADOR ]
+
+
+
+
+use_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( PALABRA_RESERVADA | PALABRA_RESERVADA ) PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( { file_name }+ | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+use_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) ] [ ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA ) ] PALABRA_RESERVADA PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( { file_name }+ | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+use_statement  ::=  PALABRA_RESERVADA [ PALABRA_RESERVADA ] PALABRA_RESERVADA [ PALABRA_RESERVADA ] ( { procedure_name }+ | PALABRA_RESERVADA PALABRA_RESERVADA )
+
+
+
+
+condition  ::=  ( combinable_condition | combined_conditions )
+
+
+
+
+combinable_condition  ::=  ( simple_condition | negated_simple_conditions | abbreviated_combined_relation_conditions )
+
+
+
+
+simple_condition  ::=  ( class_condition | condition_name_condition | relation_condition | sign_condition | switch_status_condition | PAR_IZQ condition PAR_DER )
+
+
+
+
+class_condition  ::=  identifier [ PALABRA_RESERVADA ] [ OP_LOGICO ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | class_name | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+condition_name_condition  ::=  condition_name_reference
+
+
+
+
+relation_condition  ::=  arithmetic_expression relational_operator arithmetic_expression
+
+
+
+
+relational_operator  ::=  [ PALABRA_RESERVADA ] ( [ OP_LOGICO ] ( PALABRA_RESERVADA [ PALABRA_RESERVADA ] | OP_RELACION | PALABRA_RESERVADA [ PALABRA_RESERVADA ] | OP_RELACION | PALABRA_RESERVADA [ PALABRA_RESERVADA ] |   =   ) | PALABRA_RESERVADA [ PALABRA_RESERVADA ] OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] | ">  =   | PALABRA_RESERVADA [ PALABRA_RESERVADA ] OP_LOGICO PALABRA_RESERVADA [ PALABRA_RESERVADA ] | OP_RELACION   =   )
+
+
+
+
+sign_condition  ::=  arithmetic_expression [ PALABRA_RESERVADA ] [ OP_LOGICO ] ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+switch_status_condition  ::=  condition_name_reference
+
+
+
+
+negated_simple_conditions  ::=  OP_LOGICO condition
+
+
+
+
+abbreviated_combined_relation_conditions  ::=  relation_condition abbreviation_rest
+
+abbreviated_combined_relation_conditions  ::=  arithmetic_expression relational_operator PAR_IZQ [ OP_LOGICO ] arithmetic_expression abbreviation_rest PAR_DER
+
+abbreviated_combined_relation_conditions  ::=  arithmetic_expression PAR_IZQ [ OP_LOGICO ] relational_operator arithmetic_expression abbreviation_rest PAR_DER
+
+
+
+
+abbreviation_rest  ::=  { ( OP_LOGICO | OP_LOGICO ) [ OP_LOGICO ] [ relational_operator ] abbreviation_leaf }+
+
+
+
+
+abbreviation_leaf  ::=  ( arithmetic_expression | PAR_IZQ arithmetic_expression abbreviation_rest PAR_DER )
+
+
+
+
+combined_conditions  ::=  combinable_condition { ( OP_LOGICO | OP_LOGICO ) combinable_condition }+
+
+
+
+
+procedure_name  ::=  paragraph_name [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) section_name ]
+
+procedure_name  ::=  section_name
+
+
+
+
+identifier    ::=    qualified_data_name { PAR_IZQ subscript PAR_DER }* [ PAR_IZQ leftmost_character_position PUNTUACION [ length ] PAR_DER ]
+
+identifier    ::=    PALABRA_RESERVADA [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) file_name ]
+
+
+
+
+qualified_data_name    ::=    data_name { ( PALABRA_RESERVADA | PALABRA_RESERVADA ) data_name }* [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) file_name ]
+
+qualified_data_name    ::=    special_register
+
+
+
+
+length    ::=    arithmetic_expression
+
+
+
+
+leftmost_character_position    ::=    arithmetic_expression
+
+
+
+
+condition_name_reference    ::=    condition_name { ( PALABRA_RESERVADA | PALABRA_RESERVADA ) data_name }* [ ( PALABRA_RESERVADA | PALABRA_RESERVADA ) file_name ] { PAR_IZQ subscript PAR_DER }*
+
+condition_name_reference    ::=    condition_name { ( PALABRA_RESERVADA | PALABRA_RESERVADA ) mnemonic_name }*
+
+
+
+
+subscript    ::=    { ( ENTERO | qualified_data_name [ ( OP_ARITMETICO | OP_ARITMETICO ) ENTERO ] | index_name [ ( OP_ARITMETICO | OP_ARITMETICO ) ENTERO ] ) }+
+
+
+
+
+arithmetic_expression    ::=    times_div { ( OP_ARITMETICO | OP_ARITMETICO ) times_div }*
+
+
+
+
+times_div    ::=    power { ( OP_ARITMETICO | OP_ARITMETICO ) power }*
+
+
+
+
+power    ::=    [ ( OP_ARITMETICO | OP_ARITMETICO ) ] basis { "**" basis }*
+
+
+
+
+basis    ::=    ( identifier | literal | PAR_IZQ arithmetic_expression PAR_DER )
+
+
+
+
+copy_operand    ::=    ( OP_PSEUDO | identifier | literal | IDENTIFICADOR )
+
+
+
+
+mode    ::=    ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+
+
+alphabet_name    ::=    IDENTIFICADOR
+
+
+
+
+class_name  ::=  IDENTIFICADOR
+
+
+
+
+condition_name  ::=  IDENTIFICADOR
+
+
+
+
+data_name  ::=  IDENTIFICADOR
+
+
+
+
+file_name  ::=  IDENTIFICADOR
+
+
+
+
+index_name  ::=  IDENTIFICADOR
+
+
+
+
+mnemonic_name  ::=  IDENTIFICADOR
+
+
+
+
+record_name  ::=  IDENTIFICADOR
+
+
+
+
+routine_name  ::=  IDENTIFICADOR
+
+
+
+
+symbolic_character  ::=  IDENTIFICADOR
+
+
+
+
+library_name  ::=  IDENTIFICADOR
+
+
+
+
+program_name  ::=  IDENTIFICADOR
+
+
+
+
+text_name  ::=  IDENTIFICADOR
+
+
+
+
+paragraph_name  ::=  IDENTIFICADOR
+
+
+
+
+section_name  ::=  IDENTIFICADOR
+
+
+
+
+computer_name  ::=  IDENTIFICADOR
+
+
+
+
+language_name  ::=  IDENTIFICADOR
+
+
+
+
+environment_name  ::=  IDENTIFICADOR
+
+
+
+
+assignment_name  ::=  IDENTIFICADOR
+
+
+
+
+basis_name  ::=  IDENTIFICADOR
+
+
+
+figurative_constant  ::=  ( PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA literal | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+
+literal  ::=  ( NO_NUMERICO | NUMERO | figurative_constant )
+
+
+special_register  ::=  ( PALABRA_RESERVADA PALABRA_RESERVADA data_name | PALABRA_RESERVADA | PALABRA_RESERVADA PALABRA_RESERVADA identifier | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA | PALABRA_RESERVADA )
+
+

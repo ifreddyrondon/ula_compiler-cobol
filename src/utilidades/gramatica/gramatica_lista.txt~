@@ -1,0 +1,939 @@
+program
+	: identification_division 
+	  environment_division 
+	  data_division 
+	  procedure_division
+	;
+
+identification_division
+	: TOK_IDENTIFICATION TOK_DIVISION TOK_PERIOD program_info_list
+	;
+
+prg_name_option
+	: optional_is common_initial optional_program
+    | /* lambda */
+    ;
+
+common_initial
+	: TOK_COMMON
+	| TOK_INITIAL
+	;
+
+program_info_list
+	: program_info_clause program_info_list
+	| /* lambda */
+	;
+	
+program_info_clause
+	: TOK_AUTHOR TOK_PERIOD word_list TOK_PERIOD
+    | TOK_INSTALLATION TOK_PERIOD word_list TOK_PERIOD
+    | TOK_DATE_WRITTEN TOK_PERIOD word_list TOK_PERIOD
+    | TOK_DATE_COMPILED TOK_PERIOD word_list TOK_PERIOD
+    | TOK_SECURITY TOK_PERIOD word_list TOK_PERIOD
+	| TOK_PROGRAM_ID TOK_PERIOD word_list prg_name_option TOK_PERIOD
+	;
+
+environment_division
+	: TOK_ENVIRONMENT TOK_DIVISION TOK_PERIOD configuration_section	input_output_section
+	;
+	
+configuration_section
+	: TOK_CONFIGURATION TOK_SECTION TOK_PERIOD 
+	  source_computer object_computer special_names
+	| /* lambda */
+	;             
+	
+source_computer
+	: TOK_SOURCE_COMPUTER TOK_PERIOD
+	  identifier source_debug_option TOK_PERIOD
+	| /* lambda */
+	;
+	
+source_debug_option
+	: optional_with TOK_DEBUGGING TOK_MODE
+	| /* lambda */
+	;           
+	
+object_computer
+	: TOK_OBJECT_COMPUTER TOK_PERIOD identifier memory_option TOK_PERIOD
+	| /* lambda */
+	;
+
+memory_option
+	: TOK_MEMORY optional_size integer memsize_args
+    | /* lambda */
+    ;
+    
+memsize_args
+	: TOK_WORDS
+	| TOK_CHARACTERS
+	| TOK_MODULES
+    ;
+    
+special_names
+	: TOK_SPECIAL_NAMES TOK_PERIOD special_name_list
+	| /* lambda */
+	;
+	
+special_name_list
+	: special_name_decl special_name_list
+	| /* lambda */
+	;
+	
+special_name_decl
+	: identifier TOK_IS identifier TOK_PERIOD
+	;
+	
+input_output_section
+	: TOK_INPUT_OUTPUT TOK_SECTION TOK_PERIOD file_control
+	| /* lambda */
+	;
+	
+file_control
+	: TOK_FILE_CONTROL TOK_PERIOD select_block
+	| /* lambda */
+	;
+
+select_block
+	: select_statement select_block
+	| /* lambda */
+	;
+	
+select_statement
+	: TOK_SELECT optional_optional identifier 
+	  TOK_ASSIGN optional_to identifier select_option_list TOK_PERIOD
+	;
+	
+select_option_list
+	: select_option select_option_list
+	| /* lambda */
+	;
+	
+select_option
+	: file_status_option
+	| access_mode_option
+	| organization_option
+	;
+	
+file_status_option
+	: optional_file TOK_STATUS optional_is identifier
+	;
+	
+access_mode_option
+	: TOK_ACCESS optional_mode optional_is access_mode
+	;
+	
+access_mode
+	: TOK_SEQUENTIAL
+	| TOK_RANDOM
+	| TOK_DYNAMIC
+	;
+	
+organization_option
+	: TOK_ORGANIZATION optional_is organization_kind
+	;
+	
+organization_kind
+	: TOK_SEQUENTIAL
+	| TOK_LINE TOK_SEQUENTIAL
+	| TOK_RELATIVE relative_key_option
+	| TOK_INDEXED record_key_option
+	;
+	
+relative_key_option
+	: TOK_RELATIVE optional_key optional_is identifier
+	| /* lambda */
+	;
+	
+record_key_option
+ 	: TOK_RECORD TOK_KEY optional_is identifier
+	| /* lambda */
+	;
+	
+data_division
+	: TOK_DATA TOK_DIVISION TOK_PERIOD data_section_list
+	;
+	
+data_section_list
+	: data_section_entry data_section_list
+	| /* lambda */
+	;
+data_section_entry
+	: file_section
+	| working_storage_section
+    | linkage_section
+    | communication_section
+    | report_section
+	| screen_section
+	;
+	
+file_section
+	: TOK_FILE TOK_SECTION TOK_PERIOD file_desc_block
+	;
+	
+file_desc_block
+	: file_desc_entry file_desc_block
+	| /* lambda */
+	;
+	
+file_desc_entry
+	: TOK_FD identifier file_label_entry file_name_entry
+	  TOK_PERIOD file_record_desc 
+	;
+	
+file_label_entry
+	: TOK_LABEL TOK_RECORD optional_is file_label_type 
+	| /* lambda */
+	;
+	
+file_label_type
+	: TOK_STANDARD
+	| TOK_OMITTED
+	;
+	
+file_name_entry
+	: TOK_VALUE optional_prep optional_is file_name_string
+	| /* lambda */
+	;
+	
+file_name_string
+	: identifier
+	| string
+	;
+	
+optional_prep
+ 	: TOK_OF TOK_FILE_ID
+	| /* lambda */
+	;
+	
+file_record_desc
+	: file_record_level file_record_desc_pl
+	;
+	
+file_record_desc_pl
+	: file_record_desc
+	| /* lambda */
+	;
+	
+file_record_level
+	: integer level_name array_options picture TOK_PERIOD 
+	;
+	
+record_level
+	: integer level_name record_new_or_redef TOK_PERIOD
+	;
+	
+record_new_or_redef
+	: array_options picture value_entry reclev_option_list
+	| TOK_REDEFINES identifier
+	;
+	
+array_options
+	: TOK_OCCURS integer optional_times TOK_INDEXED optional_by identifier
+	| /* lambda */
+	;
+	
+reclev_option_list
+	: record_level_option
+	| /* lambda */
+	;
+	
+record_level_option
+	: usage_option 
+	| sign_option 
+	| sync_option 
+	| justified_option 
+	;
+	
+usage_option
+	: TOK_USAGE optional_is pict_usage_args
+    ;
+    
+sign_option
+	: optional_sign optional_is sign_args sep_char_option
+    ;
+    
+sign_args
+	: TOK_LEADING
+    | TOK_TRAILING
+	;
+	
+sep_char_option
+	: TOK_SEPARATE optional_character
+    | /* lambda */
+    ;
+
+justified_option
+	: justified_just optional_right
+	;
+
+justified_just
+	: TOK_JUSTIFIED
+	| TOK_JUST
+	;
+
+sync_option
+	: TOK_SYNC left_right_option 
+	;
+
+left_right_option
+	: TOK_LEFT
+	| TOK_RIGHT
+	| /* lambda */
+	;
+	
+level_name
+	: identifier
+	| TOK_FILLER	
+	;
+	
+picture
+	: TOK_PICTURE optional_is pic_text
+	| /* lambda */
+	;
+
+pict_usage_args
+	: TOK_BINARY
+    | TOK_COMPUTATIONAL
+    | TOK_COMP
+    | TOK_DISPLAY
+    | TOK_INDEX
+    | TOK_PACKED_DECIMAL
+    ;
+
+value_entry
+	: TOK_VALUE optional_is value
+	| /* lambda */
+	;
+	
+value
+	: integer
+	| float
+	| string
+	| identifier
+	;
+	
+working_storage_section
+	: TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD record_entry_block
+	;
+	
+record_entry_block
+	: record_level record_entry_block_pl
+	;
+	
+record_entry_block_pl
+	: record_entry_block
+	| /* lambda */
+	;
+
+linkage_section
+	: TOK_LINKAGE TOK_SECTION TOK_PERIOD record_entry_block
+	;
+
+communication_section
+	: TOK_COMMUNICATION TOK_SECTION TOK_PERIOD
+    ;
+
+report_section
+	: TOK_REPORT TOK_SECTION TOK_PERIOD
+    ;
+
+screen_section
+	: TOK_SCREEN TOK_SECTION TOK_PERIOD	screen_field_list
+	;
+	
+screen_field_list
+	: screen_field screen_field_list_pl
+	;
+	
+screen_field_list_pl
+	: screen_field_list
+	| /* lambda */
+	;
+	
+screen_field
+	: integer optional_field_name field_def_list TOK_PERIOD
+	;
+	
+optional_field_name
+	: identifier
+	| /* lambda */
+	;
+	
+field_def_list
+	: field_def_clause field_def_list
+	| /* lambda */
+	;
+field_def_clause
+	: TOK_LINE integer
+	| TOK_COLUMN integer
+	| TOK_FOREGROUND_COLOR integer
+	| TOK_BACKGROUND_COLOR integer
+	| TOK_VALUE optional_is value 
+	| TOK_PICTURE optional_is pic_text
+	| src_var_word identifier
+	| TOK_HIGHLIGHT		
+	| TOK_REVERSE_VIDEO	
+	| TOK_BLINK		
+	| TOK_UNDERLINE	
+	| TOK_BLANK TOK_SCREEN	
+	;
+	
+src_var_word
+	: TOK_FROM
+	| TOK_USING
+	;
+
+procedure_division
+	: TOK_PROCEDURE TOK_DIVISION using_option TOK_PERIOD statement_list
+	;
+
+using_option
+	: TOK_USING using_id_list
+	| /* lambda */
+	;
+	
+statement_list
+	: statement statement_list
+	| /* lambda */
+	;
+	
+statement
+	: clause TOK_PERIOD
+	| if_clause TOK_PERIOD
+	| TOK_PROCEDURE identifier TOK_PERIOD
+	| TOK_INITIALIZE initialize_args TOK_PERIOD
+    | TOK_REPLACE TOK_OFF TOK_PERIOD
+	| TOK_READ identifier optional_word_record optional_at_end_clause
+	  TOK_PERIOD
+	| identifier id_statement
+	;
+	
+id_statement
+	: TOK_PERIOD
+	| TOK_SECTION TOK_PERIOD
+	;
+
+if_clause
+	: TOK_IF boolean_list if_args
+	;
+	
+if_args
+	: optional_then compound_clause if_args_end
+	;
+	
+if_args_end
+	: TOK_ELSE optional_then compound_clause
+	| TOK_ELSIF elsif_clause if_args_end
+	| /* lambda */
+	;
+	
+elsif_clause
+	: boolean_list optional_then compound_clause
+	;
+
+boolean_list
+	: boolean boolean_list_pl
+	;
+
+boolean_list_pl
+	: logic_connector { GenConnect(); } boolean_list
+	| /* lambda */
+	;
+
+boolean
+	: optional_lparen expression optional_is boolean2 optional_rparen
+    ;
+
+boolean2
+	: TOK_ALPHABETIC
+    | TOK_ALPHABETIC_UPPER
+    | TOK_ALPHABETIC_LOWER
+    | relational expression
+	| /* lambda */
+    ;
+	
+not_boolean_list
+	: not_boolean not_boolean_list_pl
+	;
+
+not_boolean_list_pl
+	: logic_connector not_boolean_list
+	| /* lambda */
+	;
+
+not_boolean
+	: optional_lparen expression optional_is not_boolean2 optional_rparen
+    ;
+
+not_boolean2
+	: reverse_relational expression
+	| /* lambda */
+    ;
+                    
+logic_connector
+	: TOK_AND
+	| TOK_OR
+	;
+
+relational
+	: TOK_GREATER optional_than
+	| TOK_LESS optional_than	
+	| TOK_EQUAL optional_to
+	| TOK_GREATER_EQ
+    | TOK_LESS_EQ 
+	| TOK_NOT reverse_relational
+	;
+
+reverse_relational
+	: TOK_GREATER optional_than
+	| TOK_LESS optional_than
+	| TOK_EQUAL optional_to
+    | TOK_GREATER_EQ 
+    | TOK_LESS_EQ 
+	;
+
+clause
+	: TOK_ACCEPT accept_args accept_option 
+	| TOK_DISPLAY display_args upon_option
+	| TOK_MOVE expression TOK_TO id_list
+	| TOK_ADD expression TOK_TO id_list giving_option
+	| TOK_SUBTRACT expression TOK_FROM id_list giving_option
+	| TOK_MULTIPLY id_list TOK_BY expression giving_option
+	| TOK_COMPUTE identifier round_option TOK_EQUAL compute_expr_list
+	| TOK_GO TOK_TO identifier
+	| TOK_PERFORM identifier perform_options end_perform
+	| TOK_OPEN open_list
+	| TOK_CLOSE id_list close_options
+	| TOK_WRITE identifier write_from_clause write_options
+	| TOK_REWRITE identifier write_from_clause
+    | TOK_CALL call_list using_options 
+	| TOK_STOP TOK_RUN
+    | TOK_EXIT TOK_PROGRAM
+	| TOK_DIVIDE id_list divide_action_word expression giving_option 
+	  round_option size_error_option
+	;
+
+optional_at_end_clause
+	: TOK_AT TOK_END compound_clause
+	| /* lambda */
+	;
+
+compound_clause
+	: clause_list
+	;
+	
+clause_list
+	: clause clause_list_pl
+	| if_clause TOK_END_IF clause_list_pl
+	| if_clause
+	;
+	
+clause_list_pl
+	: clause_list
+	| /* lambda */
+	;
+
+expression
+	: identifier
+	| integer
+	| float
+	| string
+	;
+
+accept_args
+	: optional_at id_list
+	;
+
+accept_option
+	: TOK_FROM from_arg
+    | /* lambda */
+    ;
+
+from_arg
+	: TOK_DATE { SetAcceptSource (AS_Date); }
+	| TOK_DAY { SetAcceptSource (AS_Day); }
+	| TOK_DAY_OF_WEEK { SetAcceptSource (AS_Weekday); }
+	| TOK_TIME { SetAcceptSource (AS_Time); }
+	| TOK_CONSOLE { SetAcceptSource (AS_Console); }
+	;
+
+display_args
+	: optional_at optional_all display_args_marked
+	;
+	
+optional_at
+	: TOK_LPAREN integer TOK_COMMA integer TOK_RPAREN
+	| /* lambda */
+	;
+	
+display_args_marked
+	: display_arg display_args_pl
+	;
+	
+display_args_pl
+	: optional_comma	display_args_marked
+	| /* lambda */
+	;
+	
+display_arg
+	: identifier
+	| string
+	| integer
+	| float
+    | TOK_QUOTE
+	;
+
+upon_option
+	: TOK_UPON identifier
+	| /* lambda */
+	;
+
+giving_option
+	: TOK_GIVING identifier
+	| /* lambda */
+	;
+
+round_option
+	: TOK_ROUNDED
+	| /* lambda */
+	;
+
+size_error_option
+	: TOK_ON TOK_SIZE TOK_ERROR compound_clause TOK_PERIOD
+	| /* lambda */
+	;
+
+perform_options
+	: thru_option times_option varying_option
+	;
+	
+thru_option
+	: TOK_THRU identifier
+	| /* lambda */
+	;
+	
+end_perform
+	: TOK_UNTIL not_boolean_list
+	| /* lambda */
+	;
+	
+times_option
+	: integer TOK_TIMES
+	|/* lambda */
+	;
+	
+varying_option
+	: TOK_VARYING loop_condition after_list
+	| /* lambda */
+	;
+	
+after_list
+	: TOK_AFTER loop_condition after_list
+	| /* lambda */
+	;
+	
+loop_condition
+	: identifier TOK_FROM loop_iterator loop_condition_part2
+	;
+	
+loop_condition_part2
+	: TOK_TO loop_iterator by_option
+	| by_option loop_condition_part3
+	;
+	
+loop_condition_part3
+	: TOK_WHILE boolean_list
+	| TOK_UNTIL not_boolean_list
+	;
+	
+by_option
+	: TOK_BY loop_iterator
+	|  /* lambda */
+	;
+loop_iterator
+	: identifier
+	| integer
+	;
+
+compute_expr_list
+	: compute_expr compute_expr_list_pl
+	| compute_term
+	;
+compute_expr_list_pl
+	: compute_expr_list
+	| /* lambda */
+	;
+	
+compute_expr
+	: compute_term compute_operator
+	| compute_operator
+	;
+	
+compute_term
+	: identifier
+	| integer
+	| float
+	;
+	
+compute_operator
+	: TOK_PLUS
+	| TOK_MINUS
+	| TOK_ASTERISK
+	| TOK_SLASH
+	| TOK_LPAREN
+	| TOK_RPAREN
+	;
+
+open_list
+	: open_entry open_list_pl
+	;
+	
+open_list_pl
+	: open_list
+	| /* lambda */
+	;
+	
+open_entry
+	: TOK_INPUT id_list open_options 
+	| TOK_OUTPUT id_list open_options
+	| TOK_EXTEND id_list open_options
+	| TOK_I_O id_list open_options 
+	;
+
+open_options
+	: TOK_REVERSED
+	| TOK_WITH TOK_NO TOK_REWIND
+	| /* lambda */
+	;
+
+close_options
+	: TOK_UNIT close_method
+	| TOK_REEL close_method
+	| TOK_WITH TOK_LOCK
+	| /* lambda */
+	;
+
+close_method
+	: TOK_FOR TOK_REMOVAL
+	| TOK_WITH TOK_NO TOK_REWIND
+	;
+
+write_from_clause
+	: TOK_FROM identifier
+	| /* lambda */
+	;
+	
+write_options
+	: TOK_AFTER TOK_ADVANCING loop_iterator TOK_LINES
+	| /* lambda */
+	;
+
+call_list
+	: string
+    | identifier
+    ;
+
+using_options
+	: TOK_USING using_id_list
+    | /* lambda */ 
+    ;
+    
+using_id_list
+	: identifier using_id_list_pl
+	| TOK_BY TOK_REFERENCE using_id_list
+    | TOK_BY TOK_CONTENT using_id_list
+	;
+	
+using_id_list_pl
+	: TOK_COMMA using_id_list
+	| using_id_list
+    | /* lambda */
+    ;
+
+initialize_args
+	: using_id_list replace_option
+	;
+
+replace_option
+	: TOK_REPLACING replace_next
+	| /* lambda */
+	;
+
+replace_next
+	: replace_what optional_data TOK_BY value replace_next_pl
+ 	;
+
+replace_next_pl
+	: optional_comma replace_next	
+    | /* lambda */
+	;
+
+replace_what
+	: TOK_ALPHABETIC
+	| TOK_ALPHANUMERIC
+	| TOK_NUMERIC
+	| TOK_ALPHANUMERIC_EDITED
+	| TOK_NUMERIC_EDITED
+	;
+
+id_list
+	: id_list_marked
+	;
+	
+id_list_marked
+	: identifier id_list_pl
+	;
+	
+id_list_pl
+	: optional_comma id_list_marked
+	| /* lambda */
+	;
+
+word_list
+	: TOK_IDENTIFIER word_list_pl
+	| TOK_INTEGER word_list_pl
+	| TOK_FLOAT word_list_pl
+	| TOK_STRING word_list_pl
+	| TOK_SLASH word_list_pl
+	;
+	
+word_list_pl
+	: word_list
+	| /* lambda */
+	;
+
+divide_action_word
+	: TOK_BY
+	| TOK_INTO
+	;
+
+optional_is
+	: TOK_IS
+	| TOK_ARE
+	| /* lambda */
+	;
+optional_comma
+	: TOK_COMMA
+	| /* lambda */
+	;
+	
+optional_word_record
+	: TOK_RECORD
+	| /* lambda */
+	;
+	
+optional_to
+	: TOK_TO
+    | /* lambda */
+    ;
+    
+optional_all
+	: TOK_ALL
+    | /* lambda */
+    ;
+    
+optional_than
+	: TOK_THAN
+	|/* lambda */
+    ;
+    
+optional_then
+	: TOK_THEN
+    | /* lambda */
+    ;
+    
+optional_optional
+	: TOK_OPTIONAL
+    | /* lambda */
+    ;
+    
+optional_by
+	: TOK_BY
+    | /* lambda */
+	;
+	
+optional_mode
+	: TOK_MODE
+	| /* lambda */
+	;
+	
+optional_file
+	: TOK_FILE
+	| /* lambda */
+	;
+	
+optional_key
+	: TOK_KEY
+	| /* lambda */
+    ;
+    
+optional_sign
+	: TOK_SIGN
+	| /* lambda */
+	;
+	
+optional_character
+	: TOK_CHARACTER
+	| /* lambda */
+    ;
+    
+optional_size
+	: TOK_SIZE
+	| /* lambda */
+	;
+	
+optional_program
+	: TOK_PROGRAM
+	| /* lambda */
+	;
+	
+optional_with
+	: TOK_WITH
+	| /* lambda */
+	;
+	
+optional_right
+	: TOK_RIGHT
+	| /* lambda */
+	;
+	
+optional_data
+	: TOK_DATA
+	| /* lambda */
+	;
+	
+optional_lparen
+	: TOK_LPAREN
+	| /* lambda */
+	;
+	
+optional_rparen
+	: TOK_RPAREN
+	| /* lambda */
+	;
+	
+optional_times
+	: TOK_TIMES
+	| /* lambda */
+    ;
+
+identifier
+	: TOK_IDENTIFIER 
+	;
+	
+pic_text
+	: TOK_PIC_TEXT
+	;
+	
+string
+	: TOK_STRING
+	;
+	
+integer
+	: TOK_INTEGER
+	;
+	
+float
+	:TOK_FLOAT
+	;

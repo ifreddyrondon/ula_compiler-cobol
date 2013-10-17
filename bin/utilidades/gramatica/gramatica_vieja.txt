@@ -1,0 +1,984 @@
+cobol-source-program	  =  	( "IDENTIFICATION" | "ID" ) "DIVISION" "." program-id-cobol-source-program [ identification-division-content ] [ "ENVIRONMENT" "DIVISION" "." environment-division-content ] [ "DATA" "DIVISION" "." data-division-content ] [ procedure-division ] [ { nested-cobol-source-program }* "END" "PROGRAM" program-name "." ]
+
+
+program-id-cobol-source-program	  =  	"PROGRAM-ID" [ "." ] program-name [ [ "IS" ] "INITIAL" [ "PROGRAM" ] ] [ "." ]
+
+
+
+nested-cobol-source-program	  =  	( "IDENTIFICATION" | "ID" ) "DIVISION" "." program-id-nested-cobol-source-program [ identification-division-content ] [ "ENVIRONMENT" "DIVISION" "." environment-division-content ] [ "DATA" "DIVISION" "." data-division-content ] [ procedure-division ] { nested-cobol-source-program }* "END" "PROGRAM" program-name "."
+
+
+
+
+program-id-nested-cobol-source-program	  =  	"PROGRAM-ID" [ "." ] program-name [ [ "IS" ] ( "COMMON" [ "INITIAL" ] | "INITIAL" [ "COMMON" ] ) [ "PROGRAM" ] ] [ "." ]
+
+
+
+
+identification-division-content	  =  	( [ "AUTHOR" [ "." ] ] || [ "INSTALLATION" [ "." ] ] || [ "DATE-WRITTEN" [ "." ] ] || [ "DATE-COMPILED" [ "." ] ] || [ "SECURITY" [ "." ] ] )
+
+
+
+
+environment-division-content	  =  	[ configuration-section ] [ input-output-section ]
+
+
+
+
+configuration-section	  =  	"CONFIGURATION" "SECTION" "." configuration-section-paragraphs
+
+
+
+
+configuration-section-paragraphs	  =  	[ source-computer-paragraph ] [ object-computer-paragraph ] [ special-names-paragraph ]
+
+
+
+
+source-computer-paragraph	  =  	"SOURCE-COMPUTER" "." [ computer-name [ [ "WITH" ] "DEBUGGING" "MODE" ] "." ]
+
+
+
+
+object-computer-paragraph	  =  	"OBJECT-COMPUTER" "." [ computer-name [ "MEMORY" [ "SIZE" ] integer ( "WORDS" | "CHARACTERS" | "MODULES" ) ] object-computer-paragraph-sequence-phrase "." ]
+
+
+
+
+object-computer-paragraph-sequence-phrase	  =  	[ [ "PROGRAM" ] [ "COLLATING" ] "SEQUENCE" [ "IS" ] alphabet-name ] [ "SEGMENT-LIMIT" [ "IS" ] priority-number ]
+
+
+
+
+special-names-paragraph	  =  	"SPECIAL-NAMES" "." { ( environment-name [ "IS" ] mnemonic-name | environment-name ( [ "IS" ] mnemonic-name [ special-names-paragraph-status-phrase ] | special-names-paragraph-status-phrase ) ) }* special-names-paragraph-clauses [ "." ]
+
+
+
+
+special-names-paragraph-clauses	  =  	( { alphabet-clause }* || { symbolic-characters-clause }* || { class-clause }* || [ currency-sign-clause ] || [ decimal-point-clause ] )
+
+
+
+
+alphabet-clause	  =  	"ALPHABET" alphabet-name [ "IS" ] ( "STANDARD-1" | "STANDARD-2" | "NATIVE" | "EBCDIC" | { literal [ ( ( "THROUGH" | "THRU" ) literal | { "ALSO" literal }+ ) ] }+ )
+
+
+
+
+symbolic-characters-clause	  =  	"SYMBOLIC" [ "CHARACTERS" ] { { symbolic-character }+ [ ( "ARE" | "IS" ) ] { integer }+ }+ [ "IN" alphabet-name ]
+
+
+
+
+class-clause	  =  	"CLASS" class-name [ "IS" ] { literal [ ( "THROUGH" | "THRU" ) literal ] }+
+
+
+
+
+currency-sign-clause	  =  	"CURRENCY" [ "SIGN" ] [ "IS" ] literal
+
+
+
+
+decimal-point-clause	  =  	"DECIMAL-POINT" [ "IS" ] "COMMA"
+
+
+
+
+special-names-paragraph-status-phrase	  =  	( "ON" [ "STATUS" ] [ "IS" ] condition [ "OFF" [ "STATUS" ] [ "IS" ] condition ] | "OFF" [ "STATUS" ] [ "IS" ] condition [ "ON" [ "STATUS" ] [ "IS" ] condition ] )
+
+
+
+
+input-output-section	  =  	"INPUT-OUTPUT" "SECTION" "." [ file-control-paragraph ] [ i-o-control-paragraph ]
+
+
+
+
+file-control-paragraph	  =  	"FILE-CONTROL" "." { file-control-entry }*
+
+
+
+
+file-control-entry	  =  	select-clause assign-clause ( [ reserve-clause ] || [ [ "ORGANIZATION" [ "IS" ] ] "SEQUENTIAL" ] || [ padding-character-clause ] || [ record-delimiter-clause ] || [ "ACCESS" [ "MODE" ] [ "IS" ] "SEQUENTIAL" ] || [ password-clause ] || [ file-status-clause ] ) "."
+
+file-control-entry	  =  	select-clause assign-clause ( [ reserve-clause ] || [ "ORGANIZATION" [ "IS" ] ] "RELATIVE" || [ "ACCESS" [ "MODE" ] [ "IS" ] ( "SEQUENTIAL" [ relative-key-clause ] | ( "RANDOM" | "DYNAMIC" ) relative-key-clause ) ] || [ password-clause ] || [ file-status-clause ] ) "."
+
+file-control-entry	  =  	select-clause assign-clause ( [ reserve-clause ] || [ "ORGANIZATION" [ "IS" ] ] "INDEXED" || [ "ACCESS" [ "MODE" ] [ "IS" ] ( "SEQUENTIAL" | "RANDOM" | "DYNAMIC" ) ] || record-key-clause || [ password-clause ] || { alternate-record-key-clause }* || [ file-status-clause ] ) "."
+
+
+
+
+select-clause	  =  	"SELECT" [ "OPTIONAL" ] file-name
+
+
+
+
+assign-clause	  =  	"ASSIGN" [ "TO" ] { ( assignment-name | literal ) }+
+
+
+
+
+reserve-clause	  =  	"RESERVE" integer [ ( "AREA" | "AREAS" ) ]
+
+
+
+
+padding-character-clause	  =  	"PADDING" [ "CHARACTER" ] [ "IS" ] ( qualified-data-name | literal )
+
+
+
+
+record-delimiter-clause	  =  	"RECORD" "DELIMITER" [ "IS" ] ( "STANDARD-1" | assignment-name )
+
+
+
+
+record-key-clause	  =  	"RECORD" [ "KEY" ] [ "IS" ] qualified-data-name
+
+
+
+
+alternate-record-key-clause	  =  	"ALTERNATE" [ "RECORD" ] [ "KEY" ] [ "IS" ] qualified-data-name [ password-clause ] [ [ "WITH" ] "DUPLICATES" ]
+
+
+
+
+relative-key-clause	  =  	"RELATIVE" [ "KEY" ] [ "IS" ] qualified-data-name
+
+
+
+
+password-clause	  =  	"PASSWORD" [ "IS" ] data-name
+
+
+
+
+file-status-clause	  =  	[ "FILE" ] "STATUS" [ "IS" ] qualified-data-name [ qualified-data-name ]
+
+
+
+
+i-o-control-paragraph	  =  	"I-O-CONTROL" "." [ { ( qsam-or-sam-i-o-control-entries | vsam-i-o-control-entries ) }+ "." ] [ sort-merge-i-o-control-entries "." ]
+
+
+
+
+qsam-or-sam-i-o-control-entries	  =  	( "RERUN" "ON" ( assignment-name | file-name ) [ "EVERY" ] ( integer "RECORDS" | "END" [ "OF" ] ( "REEL" | "UNIT" ) ) [ "OF" ] file-name | "SAME" [ "RECORD" ] [ "AREA" ] [ "FOR" ] file-name { file-name }+ | "MULTIPLE" "FILE" [ "TAPE" ] [ "CONTAINS" ] { file-name [ "POSITION" integer ] }+ | "APPLY" "WRITE-ONLY" [ "ON" ] { file-name }+ )
+
+
+
+
+vsam-i-o-control-entries	  =  	( "RERUN" "ON" ( assignment-name | file-name ) [ "EVERY" ] integer "RECORDS" [ "OF" ] file-name | "SAME" [ "RECORD" ] [ "AREA" ] [ "FOR" ] file-name { file-name }+ )
+
+
+
+
+sort-merge-i-o-control-entries	  =  	[ "RERUN" "ON" assignment-name ] { "SAME" ( "RECORD" | "SORT" | "SORT-MERGE" ) [ "AREA" ] [ "FOR" ] file-name { file-name }+ }+
+
+
+
+
+data-division-content	  =  	[ "FILE" "SECTION" "." { file-and-sort-description-entry { record-description-entry }+ }* ] [ "WORKING-STORAGE" "SECTION" "." { ( record-description-entry | data-item-description-entry ) }* ] [ "LINKAGE" "SECTION" "." { ( record-description-entry | data-item-description-entry ) }* ]
+
+
+
+
+data-item-description-entry	  =  	data-description-entry
+
+
+
+
+record-description-entry	  =  	data-description-entry
+
+
+
+
+file-and-sort-description-entry	  =  	( "FD" | "SD" ) file-name file-and-sort-description-entry-clauses "."
+
+
+
+
+file-and-sort-description-entry-clauses	  =  	( [ external-clause ] || [ global-clause ] || [ block-contains-clause ] || [ record-clause ] || [ label-records-clause ] || [ value-of-clause ] || [ data-records-clause ] || [ linage-clause ] || [ recording-mode-clause ] || [ code-set-clause ] )
+
+
+
+
+external-clause	  =  	[ "IS" ] "EXTERNAL"
+
+
+
+
+global-clause	  =  	[ "IS" ] "GLOBAL"
+
+
+
+
+block-contains-clause	  =  	"BLOCK" [ "CONTAINS" ] [ ( integer | zero ) "TO" ] ( integer | zero ) [ ( "CHARACTERS" | "RECORDS" ) ]
+
+
+
+
+record-clause	  =  	"RECORD" ( [ "CONTAINS" ] ( integer | zero ) [ "CHARACTERS" ] | [ "CONTAINS" ] ( integer | zero ) "TO" ( integer | zero ) [ "CHARACTERS" ] | record-varying-phrase [ "DEPENDING" [ "ON" ] data-name ] )
+
+
+
+
+record-varying-phrase	  =  	[ "IS" ] "VARYING" [ "IN" ] [ "SIZE" ] [ [ "FROM" ] integer ] [ "TO" integer ] [ "CHARACTERS" ]
+
+
+
+
+label-records-clause	  =  	"LABEL" ( "RECORD" [ "IS" ] | "RECORDS" [ "ARE" ] ) ( "STANDARD" | "OMITTED" | { data-name }+ )
+
+
+
+
+value-of-clause	  =  	"VALUE" "OF" { system-name [ "IS" ] ( qualified-data-name | literal ) }+
+
+
+
+
+data-records-clause	  =  	"DATA" ( "RECORD" [ "IS" ] | "RECORDS" [ "ARE" ] ) { data-name }+
+
+
+
+
+linage-clause	  =  	"LINAGE" [ "IS" ] ( data-name | integer ) [ "LINES" ] linage-footing-phrase
+
+
+
+
+linage-footing-phrase	  =  	[ [ "WITH" ] "FOOTING" [ "AT" ] ( data-name | integer ) ] [ [ "LINES" ] [ "AT" ] "TOP" ( data-name | integer ) ] [ [ "LINES" ] [ "AT" ] "BOTTOM" ( data-name | integer ) ]
+
+
+
+
+recording-mode-clause	  =  	"RECORDING" [ "MODE" ] [ "IS" ] mode
+
+
+
+
+code-set-clause	  =  	"CODE-SET" [ "IS" ] alphabet-name
+
+
+
+
+data-description-entry	   =    level-number [ ( data-name | "FILLER" ) ] data-description-entry-clauses "."
+
+data-description-entry	  =  	level-number data-name renames-clause "."
+
+data-description-entry	  =  	level-number condition-name condition-value-clause "."
+
+
+
+
+data-description-entry-clauses	  =  	( [ redefines-clause ] || [ blank-when-zero-clause ] || [ external-clause ] || [ global-clause ] || [ justified-clause ] || [ occurs-clause ] || [ picture-clause ] || [ sign-clause ] || [ synchronized-clause ] || [ usage-clause ] || [ data-value-clause ] )
+
+
+
+
+redefines-clause	  =  	"REDEFINES" data-name
+
+
+
+
+blank-when-zero-clause	  =  	"BLANK" [ "WHEN" ] ( "ZERO" | "ZEROS" | "ZEROES" )
+
+
+
+
+justified-clause	  =  	( "JUSTIFIED" | "JUST" ) [ "RIGHT" ]
+
+
+
+
+occurs-clause	  =  	"OCCURS" integer [ "TIMES" ] { ( "ASCENDING" | "DESCENDING" ) [ "KEY" ] [ "IS" ] { qualified-data-name }+ }* [ "INDEXED" [ "BY" ] { index-name }+ ]
+
+occurs-clause	  =  	"OCCURS" [ ( integer | zero ) "TO" ] integer [ "TIMES" ] "DEPENDING" [ "ON" ] qualified-data-name { ( "ASCENDING" | "DESCENDING" ) [ "KEY" ] [ "IS" ] { qualified-data-name }+ }* [ "INDEXED" [ "BY" ] { index-name }+ ]
+
+
+
+
+
+sign-clause	  =  	[ "SIGN" [ "IS" ] ] ( "LEADING" | "TRAILING" ) [ "SEPARATE" [ "CHARACTER" ] ]
+
+
+
+
+synchronized-clause	  =  	( "SYNCHRONIZED" | "SYNC" ) [ ( "LEFT" | "RIGHT" ) ]
+
+
+
+
+usage-clause	  =  	[ "USAGE" [ "IS" ] ] ( "BINARY" | "COMP" | "COMP-1" | "COMP-2" | "COMP-3" | "COMP-4" | "COMPUTATIONAL" | "COMPUTATIONAL-1" | "COMPUTATIONAL-2" | "COMPUTATIONAL-3" | "COMPUTATIONAL-4" | "DISPLAY" | "DISPLAY-1" | "INDEX" | "PACKED-DECIMAL" | "POINTER" )
+
+
+
+
+condition-value-clause	  =  	( "VALUE" [ "IS" ] | "VALUES" [ "ARE" ] ) { literal [ ( "THROUGH" | "THRU" ) literal ] }+
+
+
+
+
+data-value-clause	  =  	"VALUE" [ "IS" ] literal
+
+
+
+
+renames-clause	  =  	"RENAMES" qualified-data-name [ ( "THROUGH" | "THRU" ) qualified-data-name ]
+
+
+
+
+procedure-division	  =  	"PROCEDURE" "DIVISION" [ "USING" { data-name }+ ] "." [ "DECLARATIVES" "." { section-header "." use-statement "." paragraphs }+ "END" "DECLARATIVES" "." ] sections
+
+procedure-division	  =  	"PROCEDURE" "DIVISION" [ "USING" { data-name }+ ] "." paragraphs
+
+
+
+
+sections	  =  	paragraphs { section-header "." paragraphs }*
+
+
+
+
+section-header	  =  	section-name "SECTION" [ priority-number ]
+
+
+
+
+paragraphs	  =  	{ sentence }* { paragraph }*
+
+
+
+
+paragraph	  =  	paragraph-name "." { sentence }*
+
+paragraph	  =  	altered-goto
+
+
+
+
+sentence	  =  	statement-list "."
+
+
+
+
+statement-list	  =  	{ statement }+
+
+
+
+
+statement	  =  	( accept-statement | add-statement | alter-statement | call-statement | cancel-statement | close-statement | compute-statement | continue-statement | delete-statement | display-statement | divide-statement | entry-statement | evaluate-statement | exit-statement | exit-program-statement | goback-statement | go-to-statement | if-statement | initialize-statement | inspect-statement | merge-statement | move-statement | multiply-statement | open-statement | perform-statement | read-statement | release-statement | return-statement | rewrite-statement | search-statement | set-statement | sort-statement | start-statement | stop-statement | string-statement | subtract-statement | unstring-statement | write-statement )
+
+
+
+
+accept-statement	  =  	"ACCEPT" identifier [ "FROM" ( mnemonic-name | environment-name ) ]
+
+accept-statement	  =  	"ACCEPT" identifier "FROM" ( "DATE" | "DAY" | "DAY-OF-WEEK" | "TIME" )
+
+
+
+
+add-statement	  =  	"ADD" { ( identifier | literal ) }+ "TO" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-ADD" ]
+
+add-statement	  =  	"ADD" { ( identifier | literal ) }+ [ "TO" ] ( identifier | literal ) "GIVING" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-ADD" ]
+
+add-statement	  =  	"ADD" ( "CORRESPONDING" | "CORR" ) identifier "TO" identifier [ "ROUNDED" ] [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-ADD" ]
+
+
+
+
+alter-statement	  =  	"ALTER" { procedure-name "TO" [ "PROCEED" "TO" ] procedure-name }+
+
+
+
+
+call-statement	  =  	"CALL" ( identifier | literal ) [ "USING" { ( [ [ "BY" ] "REFERENCE" ] { ( identifier | "ADDRESS" "OF" identifier | file-name ) }+ | [ "BY" ] "CONTENT" { ( [ "LENGTH" "OF" ] identifier | "ADDRESS" "OF" identifier | literal ) }+ ) }+ ] [ [ "ON" ] "OVERFLOW" statement-list ] [ "END-CALL" ]
+
+call-statement	  =  	"CALL" ( identifier | literal ) [ "USING" { ( [ [ "BY" ] "REFERENCE" ] { ( identifier | "ADDRESS" "OF" identifier | file-name ) }+ | [ "BY" ] "CONTENT" { ( [ "LENGTH" "OF" ] identifier | "ADDRESS" "OF" identifier | literal ) }+ ) }+ ] [ [ "ON" ] "EXCEPTION" statement-list ] [ "NOT" [ "ON" ] "EXCEPTION" statement-list ] [ "END-CALL" ]
+
+
+
+
+cancel-statement	  =  	"CANCEL" { ( identifier | literal ) }+
+
+
+
+
+close-statement	  =  	"CLOSE" { file-name [ ( ( "REEL" | "UNIT" ) [ ( [ "FOR" ] "REMOVAL" | [ "WITH" ] "NO" "REWIND" ) ] | [ "WITH" ] ( "NO" "REWIND" | "LOCK" ) ) ] }+
+
+close-statement	  =  	"CLOSE" { file-name [ [ "WITH" ] "LOCK" ] }+
+
+
+
+
+compute-statement	  =  	"COMPUTE" { identifier [ "ROUNDED" ] }+ ( "  =  " | "EQUAL" ) arithmetic-expression [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-COMPUTE" ]
+
+
+
+
+continue-statement	  =  	"CONTINUE"
+
+
+
+
+delete-statement	  =  	"DELETE" file-name [ "RECORD" ] [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] [ "END-DELETE" ]
+
+
+
+
+display-statement	  =  	"DISPLAY" { ( identifier | literal ) }+ [ "UPON" ( mnemonic-name | environment-name ) ] [ [ "WITH" ] "NO" "ADVANCING" ]
+
+
+
+
+divide-statement	  =  	"DIVIDE" ( identifier | literal ) "INTO" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-DIVIDE" ]
+
+divide-statement	  =  	"DIVIDE" ( identifier | literal ) "INTO" ( identifier | literal ) "GIVING" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-DIVIDE" ]
+
+divide-statement	  =  	"DIVIDE" ( identifier | literal ) "BY" ( identifier | literal ) "GIVING" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-DIVIDE" ]
+
+divide-statement	  =  	"DIVIDE" ( identifier | literal ) "INTO" ( identifier | literal ) "GIVING" identifier [ "ROUNDED" ] "REMAINDER" identifier [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-DIVIDE" ]
+
+divide-statement	  =  	"DIVIDE" ( identifier | literal ) "BY" ( identifier | literal ) "GIVING" identifier [ "ROUNDED" ] "REMAINDER" identifier [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-DIVIDE" ]
+
+
+
+
+entry-statement	  =  	"ENTRY" literal [ "USING" { data-name }+ ]
+
+
+
+
+evaluate-statement	  =  	"EVALUATE" ( identifier | literal | arithmetic-expression | condition | "TRUE" | "FALSE" ) { "ALSO" ( identifier | literal | arithmetic-expression | condition | "TRUE" | "FALSE" ) }* { { "WHEN" evaluate-phrase { "ALSO" evaluate-phrase }* }+ statement-list }+ [ "WHEN" "OTHER" statement-list ] [ "END-EVALUATE" ]
+
+
+
+
+evaluate-phrase	  =  	( "ANY" | condition | "TRUE" | "FALSE" | [ "NOT" ] ( identifier | literal | arithmetic-expression ) [ ( "THROUGH" | "THRU" ) ( identifier | literal | arithmetic-expression ) ] )
+
+
+
+
+exit-statement	  =  	"EXIT"
+
+
+
+
+exit-program-statement	  =  	"EXIT" "PROGRAM"
+
+
+
+
+goback-statement	  =  	"GOBACK"
+
+
+
+
+go-to-statement	  =  	"GO" [ "TO" ] procedure-name
+
+go-to-statement	  =  	"GO" [ "TO" ] "MORE-LABELS"
+
+go-to-statement	  =  	"GO" [ "TO" ] { procedure-name }+ "DEPENDING" [ "ON" ] identifier
+
+
+
+
+altered-goto	  =  	paragraph-name "." "GO" [ "TO" ] "."
+
+
+
+
+if-statement	  =  	"IF" condition [ "THEN" ] ( { statement }+ | "NEXT" "SENTENCE" ) [ "ELSE" ( { statement }+ | "NEXT" "SENTENCE" ) ] [ "END-IF" ]
+
+
+
+
+initialize-statement	  =  	"INITIALIZE" { identifier }+ [ "REPLACING" { ( "ALPHABETIC" | "ALPHANUMERIC" | "NUMERIC" | "ALPHANUMERIC-EDITED" | "NUMERIC-EDITED" | "DBCS" | "EGCS" ) [ "DATA" ] "BY" ( identifier | literal ) }+ ]
+
+
+
+
+inspect-statement	  =  	"INSPECT" identifier "TALLYING" { identifier "FOR" { ( "CHARACTERS" { before-after-phrase }* | ( "ALL" | "LEADING" ) { ( identifier | literal ) { before-after-phrase }* }+ ) }+ }+
+
+inspect-statement	  =  	"INSPECT" identifier "CONVERTING" ( identifier | literal ) "TO" ( identifier | literal ) { before-after-phrase }*
+
+inspect-statement	  =  	"INSPECT" identifier "TALLYING" { identifier "FOR" { ( "CHARACTERS" { before-after-phrase }* | ( "ALL" | "LEADING" ) { ( identifier | literal ) { before-after-phrase }* }+ ) }+ }+ "REPLACING" { ( "CHARACTERS" "BY" ( identifier | literal ) { before-after-phrase }* | ( "ALL" | "LEADING" | "FIRST" ) { ( identifier | literal ) "BY" ( identifier | literal ) { before-after-phrase }* }+ ) }+
+
+inspect-statement	  =  	"INSPECT" identifier "REPLACING" { ( "CHARACTERS" "BY" ( identifier | literal ) { before-after-phrase }* | ( "ALL" | "LEADING" | "FIRST" ) { ( identifier | literal ) "BY" ( identifier | literal ) { before-after-phrase }* }+ ) }+
+
+
+
+
+before-after-phrase	  =  	( "BEFORE" | "AFTER" ) [ "INITIAL" ] ( identifier | literal )
+
+
+
+
+merge-statement	  =  	"MERGE" file-name { [ "ON" ] ( "ASCENDING" | "DESCENDING" ) [ "KEY" ] { qualified-data-name }+ }+ [ [ "COLLATING" ] "SEQUENCE" [ "IS" ] alphabet-name ] "USING" file-name { file-name }+ ( "OUTPUT" "PROCEDURE" [ "IS" ] procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] | "GIVING" { file-name }+ )
+
+
+
+
+move-statement	  =  	"MOVE" ( identifier | literal ) "TO" { identifier }+
+
+move-statement	  =  	"MOVE" ( "CORRESPONDING" | "CORR" ) identifier "TO" { identifier }+
+
+
+
+
+multiply-statement	  =  	"MULTIPLY" ( identifier | literal ) "BY" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-MULTIPLY" ]
+
+multiply-statement	  =  	"MULTIPLY" ( identifier | literal ) "BY" ( identifier | literal ) "GIVING" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-MULTIPLY" ]
+
+
+
+
+open-statement	  =  	"OPEN" { ( "INPUT" { file-name [ ( "REVERSED" | [ "WITH" ] "NO" "REWIND" ) ] }+ | "OUTPUT" { file-name [ [ "WITH" ] "NO" "REWIND" ] }+ | "I-O" { file-name }+ | "EXTEND" { file-name }+ ) }+
+
+open-statement	  =  	"OPEN" { ( "INPUT" { file-name }+ | "OUTPUT" { file-name }+ | "I-O" { file-name }+ | "EXTEND" { file-name }+ ) }+
+
+
+
+
+perform-statement	  =  	"PERFORM" ( procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] | statement-list "END-PERFORM" )
+
+perform-statement	  =  	"PERFORM" ( procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] perform-varying-phrase perform-after-phrase | perform-varying-phrase statement-list "END-PERFORM" )
+
+perform-statement	  =  	"PERFORM" ( procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] ( identifier | integer ) "TIMES" | ( identifier | integer ) "TIMES" statement-list "END-PERFORM" )
+
+perform-statement	  =  	"PERFORM" ( procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] perform-until-phrase | perform-until-phrase statement-list "END-PERFORM" )
+
+
+
+
+perform-until-phrase	  =  	[ [ "WITH" ] "TEST" ( "BEFORE" | "AFTER" ) ] "UNTIL" condition
+
+
+
+
+perform-varying-phrase	  =  	[ [ "WITH" ] "TEST" ( "BEFORE" | "AFTER" ) ] "VARYING" ( identifier | index-name ) "FROM" ( identifier | index-name | literal ) "BY" ( identifier | literal ) "UNTIL" condition
+
+
+
+
+perform-after-phrase	  =  	{ "AFTER" ( identifier | index-name ) "FROM" ( identifier | index-name | literal ) "BY" ( identifier | literal ) "UNTIL" condition }*
+
+
+
+
+read-statement	  =  	"READ" file-name [ "NEXT" ] [ "RECORD" ] [ "INTO" identifier ] [ [ "AT" ] "END" statement-list ] [ "NOT" [ "AT" ] "END" statement-list ] [ "END-READ" ]
+
+read-statement	  =  	"READ" file-name [ "RECORD" ] [ "INTO" identifier ] [ "KEY" [ "IS" ] qualified-data-name ] [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] [ "END-READ" ]
+
+
+
+
+release-statement	  =  	"RELEASE" record-name [ "FROM" identifier ]
+
+
+
+
+return-statement	  =  	"RETURN" file-name [ "RECORD" ] [ "INTO" identifier ] [ "AT" ] "END" statement-list [ "NOT" [ "AT" ] "END" statement-list ] [ "END-RETURN" ]
+
+
+
+
+rewrite-statement	  =  	"REWRITE" record-name [ "FROM" identifier ] [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] [ "END-REWRITE" ]
+
+
+
+
+search-statement	  =  	"SEARCH" identifier [ "VARYING" ( identifier | index-name ) ] [ [ "AT" ] "END" statement-list ] { "WHEN" condition ( statement-list | "NEXT" "SENTENCE" ) }+ [ "END-SEARCH" ]
+
+search-statement	  =  	"SEARCH" "ALL" identifier [ [ "AT" ] "END" statement-list ] "WHEN" ( qualified-data-name [ "IS" ] ( "EQUAL" [ "TO" ] | "  =  " ) ( identifier | literal | arithmetic-expression ) | condition-name-reference ) { "AND" ( qualified-data-name [ "IS" ] ( "EQUAL" [ "TO" ] | "  =  " ) ( identifier | literal | arithmetic-expression ) | condition-name-reference ) }* ( statement-list | "NEXT" "SENTENCE" ) [ "END-SEARCH" ]
+
+
+
+
+set-statement	  =  	"SET" { ( index-name | identifier ) }+ "TO" ( index-name | identifier | integer )
+
+set-statement	  =  	"SET" { index-name }+ ( "UP" "BY" | "DOWN" "BY" ) ( identifier | integer )
+
+set-statement	  =  	"SET" { { mnemonic-name }+ "TO" ( "ON" | "OFF" ) }+
+
+set-statement	  =  	"SET" { condition-name-reference }+ "TO" "TRUE"
+
+set-statement	  =  	"SET" { ( identifier | "ADDRESS" "OF" identifier ) }+ "TO" ( identifier | "ADDRESS" "OF" identifier | "NULL" | "NULLS" )
+
+
+
+
+sort-statement	  =  	"SORT" file-name { [ "ON" ] ( "ASCENDING" | "DESCENDING" ) [ "KEY" ] { qualified-data-name }+ }+ [ [ "WITH" ] "DUPLICATES" [ "IN" ] [ "ORDER" ] ] [ [ "COLLATING" ] "SEQUENCE" [ "IS" ] alphabet-name ] ( "USING" { file-name }+ | "INPUT" "PROCEDURE" [ "IS" ] procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] ) ( "GIVING" { file-name }+ | "OUTPUT" "PROCEDURE" [ "IS" ] procedure-name [ ( "THROUGH" | "THRU" ) procedure-name ] )
+
+
+
+
+start-statement	  =  	"START" file-name [ "KEY" [ "IS" ] ( "EQUAL" [ "TO" ] | "  =  " | "GREATER" [ "THAN" ] | ">" | "NOT" "LESS" [ "THAN" ] | "NOT" "<" | "GREATER" [ "THAN" ] "OR" "EQUAL" [ "TO" ] | ">  =  " ) qualified-data-name ] [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] [ "END-START" ]
+
+
+
+
+stop-statement	  =  	"STOP" ( "RUN" | literal )
+
+
+
+
+string-statement	  =  	"STRING" { { ( identifier | literal ) }+ "DELIMITED" [ "BY" ] ( identifier | literal | "SIZE" ) }+ "INTO" identifier [ [ "WITH" ] "POINTER" identifier ] [ [ "ON" ] "OVERFLOW" statement-list ] [ "NOT" [ "ON" ] "OVERFLOW" statement-list ] [ "END-STRING" ]
+
+
+
+
+subtract-statement	  =  	"SUBTRACT" { ( identifier | literal ) }+ "FROM" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-SUBTRACT" ]
+
+subtract-statement	  =  	"SUBTRACT" { ( identifier | literal ) }+ "FROM" ( identifier | literal ) "GIVING" { identifier [ "ROUNDED" ] }+ [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-SUBTRACT" ]
+
+subtract-statement	  =  	"SUBTRACT" ( "CORRESPONDING" | "CORR" ) identifier "FROM" identifier [ "ROUNDED" ] [ [ "ON" ] "SIZE" "ERROR" statement-list ] [ "NOT" [ "ON" ] "SIZE" "ERROR" statement-list ] [ "END-SUBTRACT" ]
+
+
+
+
+unstring-statement	  =  	"UNSTRING" identifier [ "DELIMITED" [ "BY" ] [ "ALL" ] ( identifier | literal ) { "OR" [ "ALL" ] ( identifier | literal ) }* ] "INTO" { identifier [ "DELIMITER" [ "IN" ] identifier ] [ "COUNT" [ "IN" ] identifier ] }+ [ [ "WITH" ] "POINTER" identifier ] [ "TALLYING" [ "IN" ] identifier ] [ [ "ON" ] "OVERFLOW" statement-list ] [ "NOT" [ "ON" ] "OVERFLOW" statement-list ] [ "END-UNSTRING" ]
+
+
+
+
+write-statement	  =  	"WRITE" record-name [ "FROM" identifier ] ( [ ( "BEFORE" | "AFTER" ) [ "ADVANCING" ] ( ( identifier | integer ) [ ( "LINE" | "LINES" ) ] | mnemonic-name | "PAGE" ) ] write-statement-phrase | [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] ) [ "END-WRITE" ]
+
+write-statement	  =  	"WRITE" record-name [ "FROM" identifier ] [ "INVALID" [ "KEY" ] statement-list ] [ "NOT" "INVALID" [ "KEY" ] statement-list ] [ "END-WRITE" ]
+
+write-statement	  =  	"WRITE" record-name [ "FROM" identifier ] [ "END-WRITE" ]
+
+
+
+
+write-statement-phrase	  =  	[ [ "AT" ] ( "END-OF-PAGE" | "EOP" ) statement-list ] [ "NOT" [ "AT" ] ( "END-OF-PAGE" | "EOP" ) statement-list ]
+
+
+
+
+compiler-directing-statement	  =  	( cbl-process-statement | control-cbl-statement | copy-statement | eject-statement | enter-statement | ready-or-reset-trace-statement | replace-statement | replace-statement | service-label-statement | service-reload-statement | skip1-2-3-statement | title-statement | use-statement )
+
+
+
+
+control-cbl-statement	  =  	( "*CONTROL" | "*CBL" ) { ( "SOURCE" | "NOSOURCE" | "LIST" | "NOLIST" | "MAP" | "NOMAP" ) }+ [ "." ]
+
+
+
+
+copy-statement	  =  	"COPY" ( text-name | literal ) [ ( "OF" | "IN" ) ( library-name | literal ) ] [ "SUPPRESS" ] [ "REPLACING" { copy-operand "BY" copy-operand }+ ] "."
+
+
+
+
+
+eject-statement	  =  	"EJECT" [ "." ]
+
+
+
+
+enter-statement	  =  	"ENTER" language-name [ routine-name ] "."
+
+
+
+
+
+ready-or-reset-trace-statement	  =  	( "READY" | "RESET" ) "TRACE" "."
+
+
+
+
+replace-statement	  =  	"REPLACE" { quoted-pseudo-text "BY" quoted-pseudo-text }+ "."
+
+replace-statement	  =  	"REPLACE" "OFF" "."
+
+
+
+
+service-label-statement	  =  	"SERVICE" "LABEL"
+
+
+
+
+service-reload-statement	  =  	"SERVICE" "RELOAD" identifier
+
+
+
+
+skip-statement	  =  	( "SKIP1" | "SKIP2" | "SKIP3" ) [ "." ]
+
+
+
+
+title-statement	  =  	"TITLE" literal [ "." ]
+
+
+
+
+use-statement	  =  	"USE" [ "GLOBAL" ] "AFTER" [ "STANDARD" ] ( "EXCEPTION" | "ERROR" ) "PROCEDURE" [ "ON" ] ( { file-name }+ | "INPUT" | "OUTPUT" | "I-O" | "EXTEND" )
+
+use-statement	  =  	"USE" [ "GLOBAL" ] "AFTER" [ "STANDARD" ] [ ( "BEGINNING" | "ENDING" ) ] [ ( "FILE" | "REEL" | "UNIT" ) ] "LABEL" "PROCEDURE" [ "ON" ] ( { file-name }+ | "INPUT" | "OUTPUT" | "I-O" | "EXTEND" )
+
+use-statement	  =  	"USE" [ "FOR" ] "DEGUGGING" [ "ON" ] ( { procedure-name }+ | "ALL" "PROCEDURES" )
+
+
+
+
+condition	  =  	( combinable-condition | combined-conditions )
+
+
+
+
+combinable-condition	  =  	( simple-condition | negated-simple-conditions | abbreviated-combined-relation-conditions )
+
+
+
+
+simple-condition	  =  	( class-condition | condition-name-condition | relation-condition | sign-condition | switch-status-condition | "(" condition ")" )
+
+
+
+
+class-condition	  =  	identifier [ "IS" ] [ "NOT" ] ( "NUMERIC" | "ALPHABETIC" | "ALPHABETIC-LOWER" | "ALPHABETIC-UPPER" | class-name | "DBCS" | "KANJI" )
+
+
+
+
+condition-name-condition	  =  	condition-name-reference
+
+
+
+
+relation-condition	  =  	arithmetic-expression relational-operator arithmetic-expression
+
+
+
+
+relational-operator	  =  	[ "IS" ] ( [ "NOT" ] ( "GREATER" [ "THAN" ] | ">" | "LESS" [ "THAN" ] | "<" | "EQUAL" [ "TO" ] | "  =  " ) | "GREATER" [ "THAN" ] "OR" "EQUAL" [ "TO" ] | ">  =  " | "LESS" [ "THAN" ] "OR" "EQUAL" [ "TO" ] | "<" "  =  " )
+
+
+
+
+sign-condition	  =  	arithmetic-expression [ "IS" ] [ "NOT" ] ( "POSITIVE" | "NEGATIVE" | "ZERO" )
+
+
+
+
+switch-status-condition	  =  	condition-name-reference
+
+
+
+
+negated-simple-conditions	  =  	"NOT" condition
+
+
+
+
+abbreviated-combined-relation-conditions	  =  	relation-condition abbreviation-rest
+
+abbreviated-combined-relation-conditions	  =  	arithmetic-expression relational-operator "(" [ "NOT" ] arithmetic-expression abbreviation-rest ")"
+
+abbreviated-combined-relation-conditions	  =  	arithmetic-expression "(" [ "NOT" ] relational-operator arithmetic-expression abbreviation-rest ")"
+
+
+
+
+abbreviation-rest	  =  	{ ( "AND" | "OR" ) [ "NOT" ] [ relational-operator ] abbreviation-leaf }+
+
+
+
+
+abbreviation-leaf	  =  	( arithmetic-expression | "(" arithmetic-expression abbreviation-rest ")" )
+
+
+
+
+combined-conditions	  =  	combinable-condition { ( "AND" | "OR" ) combinable-condition }+
+
+
+
+
+procedure-name	  =  	paragraph-name [ ( "IN" | "OF" ) section-name ]
+
+procedure-name	  =  	section-name
+
+
+
+
+identifier	    =    	qualified-data-name { "(" subscript ")" }* [ "(" leftmost-character-position ":" [ length ] ")" ]
+
+identifier	    =    	"LINAGE-COUNTER" [ ( "IN" | "OF" ) file-name ]
+
+
+
+
+qualified-data-name	    =    	data-name { ( "IN" | "OF" ) data-name }* [ ( "IN" | "OF" ) file-name ]
+
+qualified-data-name	    =    	special-register
+
+
+
+
+length	    =    	arithmetic-expression
+
+
+
+
+leftmost-character-position	    =    	arithmetic-expression
+
+
+
+
+condition-name-reference	    =    	condition-name { ( "IN" | "OF" ) data-name }* [ ( "IN" | "OF" ) file-name ] { "(" subscript ")" }*
+
+condition-name-reference	    =    	condition-name { ( "IN" | "OF" ) mnemonic-name }*
+
+
+
+
+subscript	    =    	{ ( integer | qualified-data-name [ ( "+" | "-" ) integer ] | index-name [ ( "+" | "-" ) integer ] ) }+
+
+
+
+
+arithmetic-expression	    =    	times-div { ( "+" | "-" ) times-div }*
+
+
+
+
+times-div	    =    	power { ( "*" | "/" ) power }*
+
+
+
+
+power	    =    	[ ( "+" | "-" ) ] basis { "**" basis }*
+
+
+
+
+basis	    =    	( identifier | literal | "(" arithmetic-expression ")" )
+
+
+
+
+copy-operand	    =    	( quoted-pseudo-text | identifier | literal | cobol-word )
+
+
+
+
+mode	    =    	( "F" | "V" | "U" | "S" )
+
+
+
+
+alphabet-name	    =    	alphabetic-user-defined-word
+
+
+
+
+class-name	  =  	alphabetic-user-defined-word
+
+
+
+
+condition-name	  =  	alphabetic-user-defined-word
+
+
+
+
+data-name	  =  	alphabetic-user-defined-word
+
+
+
+
+file-name	  =  	alphabetic-user-defined-word
+
+
+
+
+index-name	  =  	alphabetic-user-defined-word
+
+
+
+
+mnemonic-name	  =  	alphabetic-user-defined-word
+
+
+
+
+record-name	  =  	qualified-data-name
+
+
+
+
+routine-name	  =  	alphabetic-user-defined-word
+
+
+
+
+symbolic-character	  =  	alphabetic-user-defined-word
+
+
+
+
+library-name	  =  	user-defined-word
+
+
+
+
+program-name	  =  	user-defined-word
+
+
+
+
+text-name	  =  	user-defined-word
+
+
+
+
+paragraph-name	  =  	user-defined-word
+
+
+
+
+section-name	  =  	user-defined-word
+
+
+
+
+computer-name	  =  	system-name
+
+
+
+
+language-name	  =  	system-name
+
+
+
+
+environment-name	  =  	system-name
+
+
+
+
+assignment-name	  =  	system-name
+
+
+
+
+basis-name	  =  	program-name
+
+
+
+figurative-constant	  =  	( "ZERO" | "ZEROS" | "ZEROES" | "SPACE" | "SPACES" | "HIGH-VALUE" | "HIGH-VALUES" | "LOW-VALUE" | "LOW-VALUES" | "QUOTE" | "QUOTES" | "ALL" literal | "NULL" | "NULLS" )
+
+
+literal	  =  	( nonnumeric | numeric | figurative-constant )
+
+
+special-register	  =  	( "ADDRESS" "OF" data-name | "DEBUG-ITEM" | "LENGTH" "OF" identifier | "RETURN-CODE" | "SHIFT-OUT" | "SHIFT-IN" | "SORT-CONTROL" | "SORT-CORE-SIZE" | "SORT-FILE-SIZE" | "SORT-MESSAGE" | "SORT-MODE-SIZE" | "SORT-RETURN" | "TALLY" | "WHEN-COMPILED" )
+

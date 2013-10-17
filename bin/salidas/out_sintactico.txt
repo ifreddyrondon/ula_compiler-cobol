@@ -1,0 +1,757 @@
+# Iniciando parser
+# Symbol Actual es #162
+# Shift under term #162 to state #4
+# Token Actual es #97
+# Shift under term #97 to state #5
+# Token Actual es #360
+# Shift under term #360 to state #6
+# Token Actual es #244
+# Shift under term #244 to state #11
+# Token Actual es #360
+# Shift under term #360 to state #32
+# Token Actual es #354
+# Reduce with prod #20 [NT=183, SZ=0]
+# Reduce rule: top state 32, lhs sym 183 -> state 33
+# Ir al estado #33
+# Shift under term #354 to state #18
+# Token Actual es #360
+# Reduce with prod #363 [NT=199, SZ=0]
+# Reduce rule: top state 18, lhs sym 199 -> state 30
+# Ir al estado #30
+# Reduce with prod #370 [NT=149, SZ=0]
+# Reduce rule: top state 30, lhs sym 149 -> state 31
+# Ir al estado #31
+# Reduce with prod #364 [NT=148, SZ=3]
+# Reduce rule: top state 33, lhs sym 148 -> state 34
+# Ir al estado #34
+# Reduce with prod #5 [NT=3, SZ=0]
+# Reduce rule: top state 34, lhs sym 3 -> state 35
+# Ir al estado #35
+# Shift under term #360 to state #44
+# Token Actual es #128
+# Reduce with prod #21 [NT=6, SZ=6]
+# Reduce rule: top state 6, lhs sym 6 -> state 13
+# Ir al estado #13
+# Reduce with prod #9 [NT=5, SZ=0]
+# Reduce rule: top state 13, lhs sym 5 -> state 15
+# Ir al estado #15
+# Reduce with prod #8 [NT=5, SZ=2]
+# Reduce rule: top state 6, lhs sym 5 -> state 14
+# Ir al estado #14
+# Reduce with prod #2 [NT=2, SZ=4]
+# Reduce rule: top state 0, lhs sym 2 -> state 1
+# Ir al estado #1
+# Shift under term #128 to state #62
+# Token Actual es #97
+# Shift under term #97 to state #574
+# Token Actual es #360
+# Shift under term #360 to state #575
+# Token Actual es #58
+# Shift under term #58 to state #576
+# Token Actual es #284
+# Shift under term #284 to state #636
+# Token Actual es #360
+# Shift under term #360 to state #637
+# Token Actual es #300
+# Shift under term #300 to state #638
+# Token Actual es #360
+# Shift under term #360 to state #667
+# Token Actual es #354
+# Shift under term #354 to state #668
+# Token Actual es #360
+# Reduce with prod #26 [NT=184, SZ=0]
+# Reduce rule: top state 668, lhs sym 184 -> state 669
+# Ir al estado #669
+# Reduce with prod #30 [NT=10, SZ=0]
+# Reduce rule: top state 669, lhs sym 10 -> state 670
+# Ir al estado #670
+# Shift under term #360 to state #675
+# Token Actual es #213
+# Reduce with prod #27 [NT=9, SZ=6]
+# Reduce rule: top state 637, lhs sym 9 -> state 639
+# Ir al estado #639
+# Shift under term #213 to state #641
+# Token Actual es #360
+# Shift under term #360 to state #642
+# Token Actual es #354
+# Shift under term #354 to state #643
+# Token Actual es #360
+# Reduce with prod #31 [NT=185, SZ=0]
+# Reduce rule: top state 643, lhs sym 185 -> state 644
+# Ir al estado #644
+# Reduce with prod #35 [NT=12, SZ=0]
+# Reduce rule: top state 644, lhs sym 12 -> state 646
+# Ir al estado #646
+# Shift under term #360 to state #647
+# Token Actual es #69
+# Reduce with prod #32 [NT=11, SZ=6]
+# Reduce rule: top state 639, lhs sym 11 -> state 640
+# Ir al estado #640
+# Reduce with prod #40 [NT=14, SZ=0]
+# Reduce rule: top state 640, lhs sym 14 -> state 656
+# Ir al estado #656
+# Reduce with prod #24 [NT=8, SZ=6]
+# Reduce rule: top state 575, lhs sym 8 -> state 577
+# Ir al estado #577
+# Reduce with prod #47 [NT=17, SZ=0]
+# Reduce rule: top state 577, lhs sym 17 -> state 578
+# Ir al estado #578
+# Reduce with prod #22 [NT=7, SZ=5]
+# Reduce rule: top state 1, lhs sym 7 -> state 64
+# Ir al estado #64
+# Shift under term #69 to state #66
+# Token Actual es #97
+# Shift under term #97 to state #412
+# Token Actual es #360
+# Shift under term #360 to state #413
+# Token Actual es #351
+# Shift under term #351 to state #426
+# Token Actual es #284
+# Shift under term #284 to state #428
+# Token Actual es #360
+# Shift under term #360 to state #429
+# Token Actual es #2
+# Shift under term #2 to state #107
+# Token Actual es #354
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 429, lhs sym 175 -> state 431
+# Ir al estado #431
+# Shift under term #354 to state #433
+# Token Actual es #360
+# Reduce with prod #127 [NT=57, SZ=1]
+# Reduce rule: top state 431, lhs sym 57 -> state 434
+# Ir al estado #434
+# Reduce with prod #107 [NT=46, SZ=0]
+# Reduce rule: top state 434, lhs sym 46 -> state 438
+# Ir al estado #438
+# Reduce with prod #130 [NT=177, SZ=0]
+# Reduce rule: top state 438, lhs sym 177 -> state 447
+# Ir al estado #447
+# Reduce with prod #139 [NT=59, SZ=0]
+# Reduce rule: top state 447, lhs sym 59 -> state 452
+# Ir al estado #452
+# Reduce with prod #109 [NT=47, SZ=0]
+# Reduce rule: top state 452, lhs sym 47 -> state 466
+# Ir al estado #466
+# Reduce with prod #104 [NT=45, SZ=4]
+# Reduce rule: top state 434, lhs sym 45 -> state 436
+# Ir al estado #436
+# Shift under term #360 to state #492
+# Token Actual es #2
+# Reduce with prod #103 [NT=44, SZ=4]
+# Reduce rule: top state 429, lhs sym 44 -> state 430
+# Ir al estado #430
+# Shift under term #2 to state #107
+# Token Actual es #354
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 430, lhs sym 175 -> state 431
+# Ir al estado #431
+# Shift under term #354 to state #433
+# Token Actual es #365
+# Reduce with prod #127 [NT=57, SZ=1]
+# Reduce rule: top state 431, lhs sym 57 -> state 434
+# Ir al estado #434
+# Reduce with prod #107 [NT=46, SZ=0]
+# Reduce rule: top state 434, lhs sym 46 -> state 438
+# Ir al estado #438
+# Shift under term #365 to state #448
+# Token Actual es #177
+# Shift under term #177 to state #37
+# Token Actual es #366
+# Reduce with prod #373 [NT=151, SZ=1]
+# Reduce rule: top state 448, lhs sym 151 -> state 449
+# Ir al estado #449
+# Shift under term #366 to state #450
+# Token Actual es #360
+# Reduce with prod #418 [NT=173, SZ=1]
+# Reduce rule: top state 449, lhs sym 173 -> state 451
+# Ir al estado #451
+# Reduce with prod #129 [NT=177, SZ=3]
+# Reduce rule: top state 438, lhs sym 177 -> state 447
+# Ir al estado #447
+# Reduce with prod #139 [NT=59, SZ=0]
+# Reduce rule: top state 447, lhs sym 59 -> state 452
+# Ir al estado #452
+# Reduce with prod #109 [NT=47, SZ=0]
+# Reduce rule: top state 452, lhs sym 47 -> state 466
+# Ir al estado #466
+# Reduce with prod #104 [NT=45, SZ=4]
+# Reduce rule: top state 434, lhs sym 45 -> state 436
+# Ir al estado #436
+# Shift under term #360 to state #492
+# Token Actual es #2
+# Reduce with prod #103 [NT=44, SZ=4]
+# Reduce rule: top state 430, lhs sym 44 -> state 430
+# Ir al estado #430
+# Shift under term #2 to state #107
+# Token Actual es #354
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 430, lhs sym 175 -> state 431
+# Ir al estado #431
+# Shift under term #354 to state #433
+# Token Actual es #365
+# Reduce with prod #127 [NT=57, SZ=1]
+# Reduce rule: top state 431, lhs sym 57 -> state 434
+# Ir al estado #434
+# Reduce with prod #107 [NT=46, SZ=0]
+# Reduce rule: top state 434, lhs sym 46 -> state 438
+# Ir al estado #438
+# Shift under term #365 to state #448
+# Token Actual es #177
+# Shift under term #177 to state #37
+# Token Actual es #366
+# Reduce with prod #373 [NT=151, SZ=1]
+# Reduce rule: top state 448, lhs sym 151 -> state 449
+# Ir al estado #449
+# Shift under term #366 to state #450
+# Token Actual es #345
+# Reduce with prod #418 [NT=173, SZ=1]
+# Reduce rule: top state 449, lhs sym 173 -> state 451
+# Ir al estado #451
+# Reduce with prod #129 [NT=177, SZ=3]
+# Reduce rule: top state 438, lhs sym 177 -> state 447
+# Ir al estado #447
+# Shift under term #345 to state #453
+# Token Actual es #177
+# Reduce with prod #137 [NT=191, SZ=0]
+# Reduce rule: top state 453, lhs sym 191 -> state 454
+# Ir al estado #454
+# Shift under term #177 to state #37
+# Token Actual es #2
+# Reduce with prod #373 [NT=151, SZ=1]
+# Reduce rule: top state 454, lhs sym 151 -> state 455
+# Ir al estado #455
+# Shift under term #2 to state #107
+# Token Actual es #360
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 455, lhs sym 175 -> state 398
+# Ir al estado #398
+# Reduce with prod #140 [NT=60, SZ=1]
+# Reduce rule: top state 455, lhs sym 60 -> state 456
+# Ir al estado #456
+# Reduce with prod #138 [NT=59, SZ=4]
+# Reduce rule: top state 447, lhs sym 59 -> state 452
+# Ir al estado #452
+# Reduce with prod #109 [NT=47, SZ=0]
+# Reduce rule: top state 452, lhs sym 47 -> state 466
+# Ir al estado #466
+# Reduce with prod #104 [NT=45, SZ=4]
+# Reduce rule: top state 434, lhs sym 45 -> state 436
+# Ir al estado #436
+# Shift under term #360 to state #492
+# Token Actual es #2
+# Reduce with prod #103 [NT=44, SZ=4]
+# Reduce rule: top state 430, lhs sym 44 -> state 430
+# Ir al estado #430
+# Shift under term #2 to state #107
+# Token Actual es #354
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 430, lhs sym 175 -> state 431
+# Ir al estado #431
+# Shift under term #354 to state #433
+# Token Actual es #360
+# Reduce with prod #127 [NT=57, SZ=1]
+# Reduce rule: top state 431, lhs sym 57 -> state 434
+# Ir al estado #434
+# Reduce with prod #107 [NT=46, SZ=0]
+# Reduce rule: top state 434, lhs sym 46 -> state 438
+# Ir al estado #438
+# Reduce with prod #130 [NT=177, SZ=0]
+# Reduce rule: top state 438, lhs sym 177 -> state 447
+# Ir al estado #447
+# Reduce with prod #139 [NT=59, SZ=0]
+# Reduce rule: top state 447, lhs sym 59 -> state 452
+# Ir al estado #452
+# Reduce with prod #109 [NT=47, SZ=0]
+# Reduce rule: top state 452, lhs sym 47 -> state 466
+# Ir al estado #466
+# Reduce with prod #104 [NT=45, SZ=4]
+# Reduce rule: top state 434, lhs sym 45 -> state 436
+# Ir al estado #436
+# Shift under term #360 to state #492
+# Token Actual es #2
+# Reduce with prod #103 [NT=44, SZ=4]
+# Reduce rule: top state 430, lhs sym 44 -> state 430
+# Ir al estado #430
+# Shift under term #2 to state #107
+# Token Actual es #354
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 430, lhs sym 175 -> state 431
+# Ir al estado #431
+# Shift under term #354 to state #433
+# Token Actual es #365
+# Reduce with prod #127 [NT=57, SZ=1]
+# Reduce rule: top state 431, lhs sym 57 -> state 434
+# Ir al estado #434
+# Reduce with prod #107 [NT=46, SZ=0]
+# Reduce rule: top state 434, lhs sym 46 -> state 438
+# Ir al estado #438
+# Shift under term #365 to state #448
+# Token Actual es #177
+# Shift under term #177 to state #37
+# Token Actual es #366
+# Reduce with prod #373 [NT=151, SZ=1]
+# Reduce rule: top state 448, lhs sym 151 -> state 449
+# Ir al estado #449
+# Shift under term #366 to state #450
+# Token Actual es #345
+# Reduce with prod #418 [NT=173, SZ=1]
+# Reduce rule: top state 449, lhs sym 173 -> state 451
+# Ir al estado #451
+# Reduce with prod #129 [NT=177, SZ=3]
+# Reduce rule: top state 438, lhs sym 177 -> state 447
+# Ir al estado #447
+# Shift under term #345 to state #453
+# Token Actual es #177
+# Reduce with prod #137 [NT=191, SZ=0]
+# Reduce rule: top state 453, lhs sym 191 -> state 454
+# Ir al estado #454
+# Shift under term #177 to state #37
+# Token Actual es #2
+# Reduce with prod #373 [NT=151, SZ=1]
+# Reduce rule: top state 454, lhs sym 151 -> state 455
+# Ir al estado #455
+# Shift under term #2 to state #107
+# Token Actual es #360
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 455, lhs sym 175 -> state 398
+# Ir al estado #398
+# Reduce with prod #140 [NT=60, SZ=1]
+# Reduce rule: top state 455, lhs sym 60 -> state 456
+# Ir al estado #456
+# Reduce with prod #138 [NT=59, SZ=4]
+# Reduce rule: top state 447, lhs sym 59 -> state 452
+# Ir al estado #452
+# Reduce with prod #109 [NT=47, SZ=0]
+# Reduce rule: top state 452, lhs sym 47 -> state 466
+# Ir al estado #466
+# Reduce with prod #104 [NT=45, SZ=4]
+# Reduce rule: top state 434, lhs sym 45 -> state 436
+# Ir al estado #436
+# Shift under term #360 to state #492
+# Token Actual es #240
+# Reduce with prod #103 [NT=44, SZ=4]
+# Reduce rule: top state 430, lhs sym 44 -> state 430
+# Ir al estado #430
+# Reduce with prod #147 [NT=63, SZ=0]
+# Reduce rule: top state 430, lhs sym 63 -> state 494
+# Ir al estado #494
+# Reduce with prod #145 [NT=62, SZ=2]
+# Reduce rule: top state 430, lhs sym 62 -> state 493
+# Ir al estado #493
+# Reduce with prod #146 [NT=63, SZ=1]
+# Reduce rule: top state 430, lhs sym 63 -> state 494
+# Ir al estado #494
+# Reduce with prod #145 [NT=62, SZ=2]
+# Reduce rule: top state 430, lhs sym 62 -> state 493
+# Ir al estado #493
+# Reduce with prod #146 [NT=63, SZ=1]
+# Reduce rule: top state 430, lhs sym 63 -> state 494
+# Ir al estado #494
+# Reduce with prod #145 [NT=62, SZ=2]
+# Reduce rule: top state 430, lhs sym 62 -> state 493
+# Ir al estado #493
+# Reduce with prod #146 [NT=63, SZ=1]
+# Reduce rule: top state 430, lhs sym 63 -> state 494
+# Ir al estado #494
+# Reduce with prod #145 [NT=62, SZ=2]
+# Reduce rule: top state 430, lhs sym 62 -> state 493
+# Ir al estado #493
+# Reduce with prod #146 [NT=63, SZ=1]
+# Reduce rule: top state 430, lhs sym 63 -> state 494
+# Ir al estado #494
+# Reduce with prod #145 [NT=62, SZ=2]
+# Reduce rule: top state 429, lhs sym 62 -> state 432
+# Ir al estado #432
+# Reduce with prod #144 [NT=61, SZ=4]
+# Reduce rule: top state 413, lhs sym 61 -> state 417
+# Ir al estado #417
+# Reduce with prod #79 [NT=32, SZ=1]
+# Reduce rule: top state 413, lhs sym 32 -> state 425
+# Ir al estado #425
+# Reduce with prod #77 [NT=31, SZ=0]
+# Reduce rule: top state 425, lhs sym 31 -> state 495
+# Ir al estado #495
+# Reduce with prod #76 [NT=31, SZ=2]
+# Reduce rule: top state 413, lhs sym 31 -> state 423
+# Ir al estado #423
+# Reduce with prod #74 [NT=30, SZ=4]
+# Reduce rule: top state 64, lhs sym 30 -> state 67
+# Ir al estado #67
+# Shift under term #240 to state #70
+# Token Actual es #97
+# Shift under term #97 to state #71
+# Token Actual es #360
+# Reduce with prod #177 [NT=76, SZ=0]
+# Reduce rule: top state 71, lhs sym 76 -> state 73
+# Ir al estado #73
+# Shift under term #360 to state #74
+# Token Actual es #95
+# Shift under term #95 to state #101
+# Token Actual es #4
+# Reduce with prod #222 [NT=192, SZ=0]
+# Reduce rule: top state 101, lhs sym 192 -> state 102
+# Ir al estado #102
+# Reduce with prod #265 [NT=104, SZ=0]
+# Reduce rule: top state 102, lhs sym 104 -> state 104
+# Ir al estado #104
+# Reduce with prod #383 [NT=155, SZ=0]
+# Reduce rule: top state 104, lhs sym 155 -> state 112
+# Ir al estado #112
+# Shift under term #4 to state #113
+# Token Actual es #360
+# Reduce with prod #419 [NT=174, SZ=1]
+# Reduce rule: top state 112, lhs sym 174 -> state 117
+# Ir al estado #117
+# Reduce with prod #270 [NT=107, SZ=1]
+# Reduce rule: top state 112, lhs sym 107 -> state 118
+# Ir al estado #118
+# Reduce with prod #268 [NT=106, SZ=0]
+# Reduce rule: top state 118, lhs sym 106 -> state 123
+# Ir al estado #123
+# Reduce with prod #266 [NT=105, SZ=2]
+# Reduce rule: top state 112, lhs sym 105 -> state 115
+# Ir al estado #115
+# Reduce with prod #263 [NT=103, SZ=3]
+# Reduce rule: top state 102, lhs sym 103 -> state 103
+# Ir al estado #103
+# Reduce with prod #275 [NT=108, SZ=0]
+# Reduce rule: top state 103, lhs sym 108 -> state 127
+# Ir al estado #127
+# Reduce with prod #223 [NT=94, SZ=4]
+# Reduce rule: top state 74, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #95
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 74, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #95 to state #101
+# Token Actual es #354
+# Reduce with prod #222 [NT=192, SZ=0]
+# Reduce rule: top state 101, lhs sym 192 -> state 102
+# Ir al estado #102
+# Reduce with prod #265 [NT=104, SZ=0]
+# Reduce rule: top state 102, lhs sym 104 -> state 104
+# Ir al estado #104
+# Reduce with prod #383 [NT=155, SZ=0]
+# Reduce rule: top state 104, lhs sym 155 -> state 112
+# Ir al estado #112
+# Shift under term #354 to state #120
+# Token Actual es #360
+# Reduce with prod #269 [NT=107, SZ=1]
+# Reduce rule: top state 112, lhs sym 107 -> state 118
+# Ir al estado #118
+# Reduce with prod #268 [NT=106, SZ=0]
+# Reduce rule: top state 118, lhs sym 106 -> state 123
+# Ir al estado #123
+# Reduce with prod #266 [NT=105, SZ=2]
+# Reduce rule: top state 112, lhs sym 105 -> state 115
+# Ir al estado #115
+# Reduce with prod #263 [NT=103, SZ=3]
+# Reduce rule: top state 102, lhs sym 103 -> state 103
+# Ir al estado #103
+# Reduce with prod #275 [NT=108, SZ=0]
+# Reduce rule: top state 103, lhs sym 108 -> state 127
+# Ir al estado #127
+# Reduce with prod #223 [NT=94, SZ=4]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #202
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #202 to state #85
+# Token Actual es #2
+# Reduce with prod #224 [NT=193, SZ=0]
+# Reduce rule: top state 85, lhs sym 193 -> state 320
+# Ir al estado #320
+# Shift under term #2 to state #107
+# Token Actual es #331
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 320, lhs sym 175 -> state 150
+# Ir al estado #150
+# Reduce with prod #252 [NT=99, SZ=1]
+# Reduce rule: top state 320, lhs sym 99 -> state 321
+# Ir al estado #321
+# Shift under term #331 to state #322
+# Token Actual es #354
+# Shift under term #354 to state #208
+# Token Actual es #52
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Shift under term #52 to state #124
+# Token Actual es #354
+# Reduce with prod #376 [NT=152, SZ=1]
+# Reduce rule: top state 216, lhs sym 152 -> state 217
+# Ir al estado #217
+# Shift under term #354 to state #208
+# Token Actual es #360
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Reduce with prod #362 [NT=147, SZ=0]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 217, lhs sym 146 -> state 219
+# Ir al estado #219
+# Reduce with prod #361 [NT=147, SZ=2]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 322, lhs sym 146 -> state 209
+# Ir al estado #209
+# Reduce with prod #358 [NT=145, SZ=1]
+# Reduce rule: top state 322, lhs sym 145 -> state 323
+# Ir al estado #323
+# Reduce with prod #225 [NT=94, SZ=5]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #7
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #7 to state #80
+# Token Actual es #354
+# Reduce with prod #226 [NT=194, SZ=0]
+# Reduce rule: top state 80, lhs sym 194 -> state 376
+# Ir al estado #376
+# Shift under term #354 to state #148
+# Token Actual es #331
+# Reduce with prod #251 [NT=99, SZ=1]
+# Reduce rule: top state 376, lhs sym 99 -> state 377
+# Ir al estado #377
+# Shift under term #331 to state #378
+# Token Actual es #354
+# Shift under term #354 to state #208
+# Token Actual es #360
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Reduce with prod #362 [NT=147, SZ=0]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 378, lhs sym 146 -> state 209
+# Ir al estado #209
+# Reduce with prod #358 [NT=145, SZ=1]
+# Reduce rule: top state 378, lhs sym 145 -> state 379
+# Ir al estado #379
+# Reduce with prod #277 [NT=109, SZ=0]
+# Reduce rule: top state 379, lhs sym 109 -> state 380
+# Ir al estado #380
+# Reduce with prod #227 [NT=94, SZ=6]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #313
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #313 to state #81
+# Token Actual es #2
+# Reduce with prod #228 [NT=195, SZ=0]
+# Reduce rule: top state 81, lhs sym 195 -> state 371
+# Ir al estado #371
+# Shift under term #2 to state #107
+# Token Actual es #150
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 371, lhs sym 175 -> state 150
+# Ir al estado #150
+# Reduce with prod #252 [NT=99, SZ=1]
+# Reduce rule: top state 371, lhs sym 99 -> state 372
+# Ir al estado #372
+# Shift under term #150 to state #373
+# Token Actual es #354
+# Shift under term #354 to state #208
+# Token Actual es #360
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Reduce with prod #362 [NT=147, SZ=0]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 373, lhs sym 146 -> state 209
+# Ir al estado #209
+# Reduce with prod #358 [NT=145, SZ=1]
+# Reduce rule: top state 373, lhs sym 145 -> state 374
+# Ir al estado #374
+# Reduce with prod #277 [NT=109, SZ=0]
+# Reduce rule: top state 374, lhs sym 109 -> state 375
+# Ir al estado #375
+# Reduce with prod #229 [NT=94, SZ=6]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #204
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #204 to state #98
+# Token Actual es #354
+# Reduce with prod #230 [NT=196, SZ=0]
+# Reduce rule: top state 98, lhs sym 196 -> state 207
+# Ir al estado #207
+# Shift under term #354 to state #208
+# Token Actual es #36
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Reduce with prod #362 [NT=147, SZ=0]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 207, lhs sym 146 -> state 209
+# Ir al estado #209
+# Reduce with prod #358 [NT=145, SZ=1]
+# Reduce rule: top state 207, lhs sym 145 -> state 210
+# Ir al estado #210
+# Shift under term #36 to state #211
+# Token Actual es #2
+# Shift under term #2 to state #107
+# Token Actual es #360
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 211, lhs sym 175 -> state 150
+# Ir al estado #150
+# Reduce with prod #252 [NT=99, SZ=1]
+# Reduce rule: top state 211, lhs sym 99 -> state 212
+# Ir al estado #212
+# Reduce with prod #277 [NT=109, SZ=0]
+# Reduce rule: top state 212, lhs sym 109 -> state 214
+# Ir al estado #214
+# Reduce with prod #231 [NT=94, SZ=6]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #96
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #96 to state #83
+# Token Actual es #354
+# Reduce with prod #242 [NT=197, SZ=0]
+# Reduce rule: top state 83, lhs sym 197 -> state 344
+# Ir al estado #344
+# Shift under term #354 to state #208
+# Token Actual es #36
+# Reduce with prod #359 [NT=198, SZ=0]
+# Reduce rule: top state 208, lhs sym 198 -> state 216
+# Ir al estado #216
+# Reduce with prod #362 [NT=147, SZ=0]
+# Reduce rule: top state 216, lhs sym 147 -> state 218
+# Ir al estado #218
+# Reduce with prod #360 [NT=146, SZ=3]
+# Reduce rule: top state 344, lhs sym 146 -> state 209
+# Ir al estado #209
+# Reduce with prod #358 [NT=145, SZ=1]
+# Reduce rule: top state 344, lhs sym 145 -> state 345
+# Ir al estado #345
+# Shift under term #36 to state #348
+# Token Actual es #2
+# Reduce with prod #371 [NT=150, SZ=1]
+# Reduce rule: top state 345, lhs sym 150 -> state 347
+# Ir al estado #347
+# Shift under term #2 to state #107
+# Token Actual es #360
+# Reduce with prod #420 [NT=175, SZ=1]
+# Reduce rule: top state 347, lhs sym 175 -> state 150
+# Ir al estado #150
+# Reduce with prod #252 [NT=99, SZ=1]
+# Reduce rule: top state 347, lhs sym 99 -> state 349
+# Ir al estado #349
+# Reduce with prod #277 [NT=109, SZ=0]
+# Reduce rule: top state 349, lhs sym 109 -> state 350
+# Ir al estado #350
+# Reduce with prod #279 [NT=110, SZ=0]
+# Reduce rule: top state 350, lhs sym 110 -> state 351
+# Ir al estado #351
+# Reduce with prod #281 [NT=111, SZ=0]
+# Reduce rule: top state 351, lhs sym 111 -> state 352
+# Ir al estado #352
+# Reduce with prod #243 [NT=94, SZ=8]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #95
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Shift under term #95 to state #101
+# Token Actual es #354
+# Reduce with prod #222 [NT=192, SZ=0]
+# Reduce rule: top state 101, lhs sym 192 -> state 102
+# Ir al estado #102
+# Reduce with prod #265 [NT=104, SZ=0]
+# Reduce rule: top state 102, lhs sym 104 -> state 104
+# Ir al estado #104
+# Reduce with prod #383 [NT=155, SZ=0]
+# Reduce rule: top state 104, lhs sym 155 -> state 112
+# Ir al estado #112
+# Shift under term #354 to state #120
+# Token Actual es #360
+# Reduce with prod #269 [NT=107, SZ=1]
+# Reduce rule: top state 112, lhs sym 107 -> state 118
+# Ir al estado #118
+# Reduce with prod #268 [NT=106, SZ=0]
+# Reduce rule: top state 118, lhs sym 106 -> state 123
+# Ir al estado #123
+# Reduce with prod #266 [NT=105, SZ=2]
+# Reduce rule: top state 112, lhs sym 105 -> state 115
+# Ir al estado #115
+# Reduce with prod #263 [NT=103, SZ=3]
+# Reduce rule: top state 102, lhs sym 103 -> state 103
+# Ir al estado #103
+# Reduce with prod #275 [NT=108, SZ=0]
+# Reduce rule: top state 103, lhs sym 108 -> state 127
+# Ir al estado #127
+# Reduce with prod #223 [NT=94, SZ=4]
+# Reduce rule: top state 75, lhs sym 94 -> state 96
+# Ir al estado #96
+# Shift under term #360 to state #231
+# Token Actual es #0
+# Reduce with prod #180 [NT=78, SZ=2]
+# Reduce rule: top state 75, lhs sym 78 -> state 75
+# Ir al estado #75
+# Reduce with prod #179 [NT=77, SZ=0]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 75, lhs sym 77 -> state 410
+# Ir al estado #410
+# Reduce with prod #178 [NT=77, SZ=2]
+# Reduce rule: top state 74, lhs sym 77 -> state 87
+# Ir al estado #87
+# Reduce with prod #174 [NT=75, SZ=5]
+# Reduce rule: top state 67, lhs sym 75 -> state 68
+# Ir al estado #68
+# Reduce with prod #1 [NT=1, SZ=4]
+# Reduce rule: top state 0, lhs sym 1 -> state 2
+# Ir al estado #2
+# Shift under term #0 to state #61
+# Token Actual es #0
+# Reduce with prod #0 [NT=0, SZ=2]
+# Reduce rule: top state 0, lhs sym 0 -> state -1
+# Ir al estado #-1

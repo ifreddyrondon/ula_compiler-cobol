@@ -1,0 +1,19 @@
+Identificador: vary, Accion: Identificador de variable actualizado en la Tabla de Simbolos
+Identificador: varz, Accion: Identificador de variable actualizado en la Tabla de Simbolos
+Identificador: house, Accion: Identificador de variable actualizado en la Tabla de Simbolos
+Identificador: varx, Accion: DISPLAY :Comprobando la existencia del identificador
+Identificador: vary, Accion: Comprobando la existencia del identificador
+Identificador: vary, Accion: MOVE Comprobacion de tipo exitosa
+Identificador: varz, Accion: Comprobando la existencia del identificador
+Identificador: vary, Accion: Comprobando la existencia del identificador
+Identificador: varz, Accion: Comprobando la existencia del identificador
+Identificador: varz, Accion: ADD Comprobacion de tipo con vary exitosa
+Identificador: vary, Accion: Comprobando la existencia del identificador
+Identificador: vary, Accion: SUBTRACT Comprobacion de tipo exitosa
+Identificador: vary, Accion: Comprobando la existencia del identificador
+Identificador: vary, Accion: Comprobando la existencia del identificador
+Identificador: vary, Accion: MULTIPLY Comprobacion de tipo con vary exitosa
+Identificador: varz, Accion: Comprobando la existencia del identificador
+Identificador: varz, Accion: Comprobando la existencia del identificador
+Identificador: varz, Accion: DIVIDE Comprobacion de tipo con varz exitosa
+Identificador: varx, Accion: DISPLAY :Comprobando la existencia del identificador

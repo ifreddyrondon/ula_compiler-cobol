@@ -1,0 +1,916 @@
+package sintactico;
+import java_cup.runtime.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+parser code {:
+
+	public void syntax_error(Symbol s)
+	{
+		FileWriter fw = null;
+	 	PrintWriter pw = null;
+	 	
+	 	try {
+				fw = new FileWriter("src/salidas/errores_sintactico.txt", true);
+				pw = new PrintWriter(fw);
+				pw.println("Error de Sintaxis");
+				pw.println("Token: " + s.value + ", Linea: " + s.left + ", Columna: " + s.right);
+				pw.println("\n");
+			
+		} catch (Exception e){
+				e.printStackTrace();
+		} finally {
+			try {
+				if (null != fw) {
+					fw.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.err.println("\nError de Sintaxis"); 
+		System.err.println("Token: " + s.value + ", Linea: " + s.left + ", Columna: " + s.right);
+	}
+
+	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+		FileWriter fw = null;
+	 	PrintWriter pw = null;
+	 	
+	 	try {
+				fw = new FileWriter("src/salidas/errores_sintactico.txt", true);
+				pw = new PrintWriter(fw);
+				pw.println("Error de Sintaxis NO RECUPERABLE");
+				pw.println("Token: " + s.value + ", Linea: " + s.left + ", Columna: " + s.right);
+				pw.println("\n");
+			
+		} catch (Exception e){
+				e.printStackTrace();
+		} finally {
+			try {
+				if (null != fw) {
+					fw.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.err.println("\nError de Sintaxis NO RECUPERABLE");
+		System.err.println("Token: " + s.value + ", Linea: " + s.left + ", Columna: " + s.right);
+	}
+	
+	public void debug_message(String mess)
+    {
+    	FileWriter fw = null;
+	 	PrintWriter pw = null;
+	 	
+	 	try {
+				fw = new FileWriter("src/salidas/out_sintactico.txt", true);
+				pw = new PrintWriter(fw);
+				pw.println(mess);
+			
+		} catch (Exception e){
+				e.printStackTrace();
+		} finally {
+			try {
+				if (null != fw) {
+					fw.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+      	System.out.println(mess);
+    }
+
+
+	public static void main(String[] arg) throws FileNotFoundException{
+		/* Crea un objeto parser */ 
+		parser parserObj = new parser();
+		/* Asigna el Scanner */ 
+		//Scanner miAnalizadorLexico = new Yylex(new InputStreamReader(System.in));
+		Scanner miAnalizadorLexico = new Yylex(new FileReader(new File("src/sintactico/1fine.cbl")));
+		parserObj.setScanner(miAnalizadorLexico);
+		try{
+			parserObj.parse();
+			
+			System.out.println("TABLA DE SIMBOLOS");
+			System.out.println(Yylex.tablaSimbolos.print());
+			
+		}catch(Exception x){
+			System.out.println("Error fatal.");
+		}
+	}
+:}; 
+
+/* Terminales */ 
+terminal TOK_INTEGER,TOK_FLOAT,TOK_STRING,TOK_ACCEPT,TOK_ACCESS,TOK_ADD,TOK_ADVANCING,TOK_AFTER,TOK_ALL,TOK_ALPHABET,TOK_ALPHABETIC,TOK_ALPHABETIC_LOWER,TOK_ALPHABETIC_UPPER,TOK_ALPHANUMERIC,TOK_ALPHANUMERIC_EDITED,TOK_ALSO,TOK_ALTER,TOK_ALTERNATE,TOK_AND,TOK_ANY,TOK_ARE,TOK_AREA,TOK_AREAS,TOK_ASCENDING,TOK_ASSIGN,TOK_AT,TOK_AUTHOR,TOK_BACKGROUND_COLOR,TOK_BEFORE,TOK_BINARY,TOK_BLANK,TOK_BLINK,TOK_BLOCK,TOK_BOTTOM,TOK_BY,TOK_CALL,TOK_CANCEL,TOK_CD,TOK_CF,TOK_CH,TOK_CHARACTER,TOK_CHARACTERS,TOK_CLASS,TOK_CLOCK_UNITS,TOK_CLOSE,TOK_COBOL,TOK_CODE,TOK_CODE_SET,TOK_COLLATING,TOK_COLUMN,TOK_COMMA,TOK_COMMON,TOK_COMMUNICATION,TOK_COMP,TOK_COMPUTATIONAL,TOK_COMPUTE,TOK_CONFIGURATION,TOK_CONSOLE,TOK_CONTAINS,TOK_CONTENT,TOK_CONTINUE,TOK_CONTROL,TOK_CONTROLS,TOK_CORR,TOK_CORRESPONDING,TOK_COUNT,TOK_CURRENCY,TOK_DATA,TOK_DATE,TOK_DATE_COMPILED,TOK_DATE_WRITTEN,TOK_DAY,TOK_DAY_OF_WEEK,TOK_DE,TOK_DEBUG_CONTENTS,TOK_DEBUG_ITEM,TOK_DEBUG_LINE,TOK_DEBUG_NAME,TOK_DEBUG_SUB_1,TOK_DEBUG_SUB_2,TOK_DEBUG_SUB_3,TOK_DEBUGGING,TOK_DECIMAL_POINT,TOK_DECLARATIVES,TOK_DELETE,TOK_DELIMITED,TOK_DELIMITER,TOK_DEPENDING,TOK_DEPTH,TOK_DESCENDING,TOK_DESTINATION,TOK_DETAIL,TOK_DISABLE,TOK_DISPLAY,TOK_DIVIDE,TOK_DIVISION,TOK_DOWN,TOK_DUPLICATES,TOK_DYNAMIC,TOK_EGI,TOK_ELSIF,TOK_ELSE,TOK_EMI,TOK_ENABLE,TOK_END,TOK_END_ADD,TOK_END_CALL,TOK_END_COMPUTE,TOK_END_DELETE,TOK_END_DIVIDE,TOK_END_EVALUATE,TOK_END_IF,TOK_END_MULTIPLY,TOK_END_OF_PAGE,TOK_END_PERFORM,TOK_END_READ,TOK_END_RECEIVE,TOK_END_RETURN,TOK_END_REWRITE,TOK_END_SEARCH,TOK_END_START,TOK_END_STRING,TOK_END_SUBTRACT,TOK_END_UNSTRING,TOK_END_WRITE,TOK_ENTER,TOK_ENVIRONMENT,TOK_EOP,TOK_EQUAL,TOK_ERROR,TOK_ESI,TOK_EVALUATE,TOK_EVERY,TOK_EXCEPTION,TOK_EXIT,TOK_EXTEND,TOK_EXTERNAL,TOK_FALSE,TOK_FD,TOK_FILE,TOK_FILE_CONTROL,TOK_FILE_ID,TOK_FILLER,TOK_FINAL,TOK_FIRST,TOK_FOOTING,TOK_FOR,TOK_FOREGROUND_COLOR,TOK_FROM,TOK_GENERATE,TOK_GIVING,TOK_GLOBAL,TOK_GO,TOK_GREATER,TOK_GROUP,TOK_HEADING,TOK_HIGH_VALUE,TOK_HIGHLIGHT,TOK_I_O,TOK_I_O_CONTROL,TOK_IDENTIFICATION,TOK_IF,TOK_IN,TOK_INDEX,TOK_INDEXED,TOK_INDICATE,TOK_INITIAL,TOK_INITIALIZE,TOK_INITIATE,TOK_INPUT,TOK_INPUT_OUTPUT,TOK_INSPECT,TOK_INSTALLATION,TOK_INTO,TOK_INVALID,TOK_IS,TOK_JUST,TOK_JUSTIFIED,TOK_KEY,TOK_LABEL,TOK_LAST,TOK_LEADING,TOK_LEFT,TOK_LENGTH,TOK_LESS,TOK_LIMIT,TOK_LIMITS,TOK_LINAGE,TOK_LINAGE_COUNTER,TOK_LINE,TOK_LINE_COUNTER,TOK_LINES,TOK_LINKAGE,TOK_LOCK,TOK_LOW_VALUE,TOK_MEMORY,TOK_MERGE,TOK_MESSAGE,TOK_MODE,TOK_MODULES,TOK_MOVE,TOK_MULTIPLE,TOK_MULTIPLY,TOK_NATIVE,TOK_NEGATIVE,TOK_NEXT,TOK_NO,TOK_NOT,TOK_NUMBER,TOK_NUMERIC,TOK_NUMERIC_EDITED,TOK_OBJECT_COMPUTER,TOK_OCCURS,TOK_OF,TOK_OFF,TOK_OMITTED,TOK_ON,TOK_OPEN,TOK_OPTIONAL,TOK_OR,TOK_ORDER,TOK_ORGANIZATION,TOK_OTHER,TOK_OUTPUT,TOK_OVERFLOW,TOK_PACKED_DECIMAL,TOK_PADDING,TOK_PAGE,TOK_PAGE_COUNTER,TOK_PERFORM,TOK_PF,TOK_PH,TOK_PIC,TOK_PLUS,TOK_POINTER,TOK_POSITION,TOK_POSITIVE,TOK_PRINTING,TOK_PROCEDURE,TOK_PROCEDURES,TOK_PROCEED,TOK_PROGRAM,TOK_PROGRAM_ID,TOK_PURGE,TOK_QUEUE,TOK_QUOTE,TOK_RANDOM,TOK_RD,TOK_READ,TOK_RECEIVE,TOK_RECORD,TOK_REDEFINES,TOK_REEL,TOK_REFERENCE,TOK_REFERENCES,TOK_RELATIVE,TOK_RELEASE,TOK_REMAINDER,TOK_REMOVAL,TOK_RENAMES,TOK_REPLACE,TOK_REPLACING,TOK_REPORT,TOK_REPORTING,TOK_REPORTS,TOK_RERUN,TOK_RESERVE,TOK_RESET,TOK_RETURN,TOK_REVERSE_VIDEO,TOK_REVERSED,TOK_REWIND,TOK_REWRITE,TOK_RF,TOK_RH,TOK_RIGHT,TOK_ROUNDED,TOK_RUN,TOK_SAME,TOK_SCREEN,TOK_SD,TOK_SEARCH,TOK_SECTION,TOK_SECURITY,TOK_SEGMENT,TOK_SEGMENT_LIMIT,TOK_SELECT,TOK_SEND,TOK_SENTENCE,TOK_SEPARATE,TOK_SEQUENCE,TOK_SEQUENTIAL,TOK_SET,TOK_SIGN,TOK_SIZE,TOK_SORT,TOK_SORT_MERGE,TOK_SOURCE,TOK_SOURCE_COMPUTER,TOK_SPACE,TOK_SPACES,TOK_SPECIAL_NAMES,TOK_STANDARD,TOK_STANDARD_1,TOK_STANDARD_2,TOK_START,TOK_STATUS,TOK_STOP,TOK_SUB_QUEUE_1,TOK_SUB_QUEUE_2,TOK_SUB_QUEUE_3,TOK_SUBTRACT,TOK_SUM,TOK_SUPRESS,TOK_SYMBOLIC,TOK_SYNC,TOK_TABLE,TOK_TALLYING,TOK_TAPE,TOK_TERMINAL,TOK_TERMINATE,TOK_TEST,TOK_TEXT,TOK_THAN,TOK_THEN,TOK_THROUGH,TOK_THRU,TOK_TIME,TOK_TIMES,TOK_TO,TOK_TOP,TOK_TRAILING,TOK_TRUE,TOK_TYPE,TOK_UNDERLINE,TOK_UNIT,TOK_UNSTRING,TOK_UNTIL,TOK_UP,TOK_UPON,TOK_USAGE,TOK_USE,TOK_USING,TOK_VALUE,TOK_VARYING,TOK_WHEN,TOK_WHILE,TOK_WITH,TOK_WORDS,TOK_WORKING_STORAGE,TOK_WRITE,TOK_ZERO,TOK_IDENTIFIER,TOK_MINUS,TOK_ASTERISK,TOK_SLASH,TOK_DOLLAR,TOK_SEMICOLON,TOK_PERIOD,TOK_LPAREN,TOK_RPAREN,TOK_GREATER_EQ,TOK_LESS_EQ,TOK_PICTURE,TOK_PIC_TEXT;
+/* No Terminales */
+non terminal program,identification_division,prg_name_option,common_initial,program_info_list,program_info_clause,environment_division,configuration_section,source_computer,source_debug_option,object_computer,memory_option,memsize_args,special_names,special_name_list,special_name_decl,input_output_section,file_control,select_block,select_statement,select_option_list,select_option,file_status_option,access_mode_option,access_mode,organization_option,organization_kind,relative_key_option,record_key_option,data_division,data_section_list,data_section_entry,file_section,file_desc_block,file_desc_entry,file_label_entry,file_label_type,file_name_entry,file_name_string,optional_prep,file_record_desc,file_record_desc_pl,file_record_level,record_level,record_new_or_redef,array_options,reclev_option_list,record_level_option,usage_option,sign_option,sign_args,sep_char_option,justified_option,justified_just,sync_option,left_right_option,level_name,pict_usage_args,value_entry,value,working_storage_section,record_entry_block,record_entry_block_pl,linkage_section,communication_section,report_section,screen_section,screen_field_list,screen_field_list_pl,screen_field,optional_field_name,field_def_list,field_def_clause,src_var_word,procedure_division,using_option,statement_list,statement,id_statement,if_clause,if_args,if_args_end,boolean_list,boolean_list_pl,boolean,boolean2,not_boolean_list,not_boolean_list_pl,not_boolean,not_boolean2,logic_connector,relational,reverse_relational,clause,optional_at_end_clause,compound_clause,clause_list,clause_list_pl,expression,accept_args,accept_option,from_arg,display_args,optional_at,display_args_marked,display_args_pl,display_arg,upon_option,giving_option,round_option,size_error_option,perform_options,thru_option,end_perform,times_option,varying_option,after_list,loop_condition,loop_condition_part2,loop_condition_part3,by_option,loop_iterator,compute_expr_list,compute_expr_list_pl,compute_expr,compute_term,compute_operator,open_list,open_list_pl,open_entry,open_options,close_options,close_method,write_from_clause,write_options,call_list,using_options,using_id_list,using_id_list_pl,initialize_args,replace_option,replace_next,replace_next_pl,replace_what,id_list,id_list_marked,id_list_pl,word_list,word_list_pl,divide_action_word,optional_is,optional_comma,optional_word_record,optional_to,optional_all,optional_than,optional_then,optional_optional,optional_by,optional_mode,optional_file,optional_key,optional_sign,optional_character,optional_size,optional_program,optional_with,optional_right,optional_data,optional_lparen,optional_rparen,optional_times,pic_text,string,integer,float,picture;  
+ 
+/* Precedencias */
+
+start with program;
+
+/* Gram‡tica*/ 
+
+program::=	
+		identification_division
+		environment_division
+		data_division
+		procedure_division
+	;
+
+identification_division::=	TOK_IDENTIFICATION TOK_DIVISION TOK_PERIOD
+		program_info_list
+		|	error:e	{: System.err.println("ERROR"); :}
+	;
+
+prg_name_option::=	optional_is common_initial optional_program
+        |
+        ;
+
+common_initial::=		TOK_COMMON
+	|		TOK_INITIAL
+	;
+
+program_info_list::=	program_info_clause program_info_list
+	|
+	;
+program_info_clause::=	TOK_AUTHOR TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_AUTHOR"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}  TOK_PERIOD
+       	|		TOK_INSTALLATION TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_INSTALLATION"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}  TOK_PERIOD	
+       	|		TOK_DATE_WRITTEN TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_DATE_WRITTEN"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}  TOK_PERIOD
+       	|		TOK_DATE_COMPILED TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_DATE_COMPILED"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}  TOK_PERIOD	
+       	|		TOK_SECURITY TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_SECURITY"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}  TOK_PERIOD
+       	
+		|		TOK_PROGRAM_ID TOK_PERIOD {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo("TOK_PROGRAM_ID"); :} word_list  {: Yylex.tablaSimbolos.setUltimoTokenEncontradoProgramInfo(null); :}	
+				 prg_name_option TOK_PERIOD
+		;
+
+environment_division::=	TOK_ENVIRONMENT TOK_DIVISION TOK_PERIOD
+		configuration_section
+		input_output_section
+	|	error:e	{: System.err.println("ERROR"); :}
+	;
+configuration_section::=	TOK_CONFIGURATION TOK_SECTION TOK_PERIOD
+			source_computer
+			object_computer
+			special_names
+	|
+	;
+source_computer::=	TOK_SOURCE_COMPUTER TOK_PERIOD
+			TOK_IDENTIFIER:e {: System.out.println("\n TOK_SOURCE_COMPUTER"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_SOURCE_COMPUTER"); :}
+			source_debug_option TOK_PERIOD
+	|
+	;
+source_debug_option::=	optional_with TOK_DEBUGGING TOK_MODE
+	|
+	;
+object_computer::=	TOK_OBJECT_COMPUTER TOK_PERIOD 
+			TOK_IDENTIFIER:e {: System.out.println("\n TOK_OBJECT_COMPUTER"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_OBJECT_COMPUTER"); :}
+			memory_option TOK_PERIOD
+	|
+	;
+memory_option::=		TOK_MEMORY optional_size integer memsize_args
+        |
+        ;
+memsize_args::=		TOK_WORDS
+	|		TOK_CHARACTERS
+	|		TOK_MODULES
+        ;
+special_names::=		TOK_SPECIAL_NAMES TOK_PERIOD special_name_list
+	|
+	;
+special_name_list::=	special_name_decl special_name_list
+	|
+	;
+special_name_decl::=	TOK_IDENTIFIER:e {: System.out.println("\n SPECIA_NAME"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "SPECIA_NAME"); :} 
+									TOK_IS 
+									TOK_IDENTIFIER:ee {: System.out.println("\n SPECIA_NAME"+" : "+ee+"\n"); Yylex.tablaSimbolos.replaceTipe((String) ee, "SPECIA_NAME"); :} 
+									TOK_PERIOD
+	;
+input_output_section::=	TOK_INPUT_OUTPUT TOK_SECTION TOK_PERIOD
+			file_control
+	|
+	;
+file_control::=	TOK_FILE_CONTROL TOK_PERIOD
+			select_block
+	|
+	;
+
+select_block::=	select_statement select_block
+	|
+	;
+select_statement::=	TOK_SELECT optional_optional TOK_IDENTIFIER:e {: System.out.println("\n TOK_SELECT"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_SELECT"); :}
+			TOK_ASSIGN optional_to TOK_IDENTIFIER:ee {: System.out.println("\n TOK_ASSIGN"+" : "+ee+"\n"); Yylex.tablaSimbolos.replaceTipe((String) ee, "TOK_ASSIGN"); :}
+			select_option_list
+			TOK_PERIOD
+	;
+select_option_list::=	select_option select_option_list
+	|
+	;
+select_option::=	file_status_option
+	|	access_mode_option
+	|	organization_option
+	;
+file_status_option::=	optional_file TOK_STATUS optional_is 
+			TOK_IDENTIFIER:e {: System.out.println("\n TOK_STATUS"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_STATUS"); :}
+	;
+access_mode_option::=	TOK_ACCESS optional_mode optional_is access_mode
+	;
+access_mode::=	TOK_SEQUENTIAL	
+	|	TOK_RANDOM	
+	|	TOK_DYNAMIC	
+	;
+organization_option::=	TOK_ORGANIZATION optional_is organization_kind
+	;
+organization_kind::=	TOK_SEQUENTIAL		
+	|		TOK_LINE TOK_SEQUENTIAL
+	|		TOK_RELATIVE 
+			relative_key_option
+	|		TOK_INDEXED 
+			record_key_option
+	;
+relative_key_option::=	TOK_RELATIVE optional_key optional_is 
+			TOK_IDENTIFIER:e {: System.out.println("\n TOK_RELATIVE"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_STATUS"); :} 
+	|
+	;
+record_key_option::=	TOK_RECORD TOK_KEY optional_is 
+			TOK_IDENTIFIER:e {: System.out.println("\n TOK_RECORD"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_STATUS"); :} 
+	|
+	;
+data_division::=	TOK_DATA TOK_DIVISION TOK_PERIOD
+		data_section_list
+	|	error:e	{: System.err.println("ERROR"); :}
+	;
+data_section_list::=	data_section_entry data_section_list
+	|
+	;
+data_section_entry::=	file_section
+	|		working_storage_section
+        |        	linkage_section
+        |        	communication_section
+        |        	report_section
+	|		screen_section
+	;
+file_section::=	TOK_FILE TOK_SECTION TOK_PERIOD
+		file_desc_block
+	;
+file_desc_block::=	file_desc_entry file_desc_block
+	|
+	;
+file_desc_entry::=	TOK_FD TOK_IDENTIFIER:e {: System.out.println("\n TOK_FD"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_FD"); :} 
+			file_label_entry
+			file_name_entry
+			TOK_PERIOD
+			file_record_desc 
+	;
+file_label_entry::=	TOK_LABEL TOK_RECORD optional_is file_label_type 
+	|
+	;
+file_label_type::=	TOK_STANDARD
+	|		TOK_OMITTED
+	;
+file_name_entry::=	TOK_VALUE optional_prep optional_is
+			file_name_string
+	|		
+	;
+file_name_string::=	TOK_IDENTIFIER:e {: System.out.println("\n FILE_NAME_STRING"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "FILE_NAME_STRING"); :}
+	|		string
+	;
+optional_prep::=	TOK_OF TOK_FILE_ID
+	|
+	;
+file_record_desc::=	file_record_level file_record_desc_pl
+	;
+file_record_desc_pl::=	file_record_desc
+	|
+	;
+file_record_level::=	integer level_name 
+			array_options
+			picture TOK_PERIOD 
+	;
+record_level::=	integer
+		level_name
+		record_new_or_redef
+		TOK_PERIOD
+	;
+record_new_or_redef::=	array_options 
+			picture value_entry reclev_option_list
+	|		TOK_REDEFINES TOK_IDENTIFIER:e {: System.out.println("\n TOK_REDEFINES"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_REDEFINES"); :}
+	;
+array_options::=		TOK_OCCURS integer optional_times
+			TOK_INDEXED optional_by TOK_IDENTIFIER:e {: System.out.println("\n TOK_INDEXED"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_INDEXED"); :}
+	|		
+	;
+reclev_option_list::=	record_level_option
+	|
+	;
+record_level_option::=	usage_option 
+	|		sign_option 
+	|		sync_option 
+	|		justified_option 
+	;
+usage_option::=          TOK_USAGE optional_is pict_usage_args
+        ;
+sign_option::=	optional_sign optional_is sign_args 
+		sep_char_option
+        ;
+sign_args::=		TOK_LEADING
+        |		TOK_TRAILING
+	;
+sep_char_option::=	TOK_SEPARATE optional_character
+        |
+        ;
+
+justified_option::=	justified_just optional_right 
+	;
+
+justified_just::=		TOK_JUSTIFIED
+	|		TOK_JUST
+	;
+
+sync_option::=		TOK_SYNC left_right_option 
+	;
+
+left_right_option::=	TOK_LEFT
+	|		TOK_RIGHT
+	|
+	;
+level_name::=	TOK_IDENTIFIER:e
+	{: System.out.println("\n TOK_IDENTIFIER"+" : "+e+"\n"); 
+		Yylex.tablaSimbolos.replaceTipe((String) e, "TOK_IDENTIFIER"); 
+	:}
+	|	TOK_FILLER	
+	;
+picture::=	TOK_PICTURE optional_is pic_text
+	|	
+	;
+
+pict_usage_args::=    TOK_BINARY
+        |           TOK_COMPUTATIONAL
+        |           TOK_COMP
+        |           TOK_DISPLAY
+        |           TOK_INDEX
+        |           TOK_PACKED_DECIMAL
+        ;
+
+value_entry::=	TOK_VALUE optional_is value
+	|	
+	;
+	
+value::=		integer  
+	|	float				   	 
+	|	string				 
+	|	TOK_IDENTIFIER
+	;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+working_storage_section::=	TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD
+				record_entry_block
+	;
+record_entry_block::=	record_level record_entry_block_pl
+	;
+record_entry_block_pl::=	record_entry_block
+	|
+	;
+
+linkage_section::=	TOK_LINKAGE TOK_SECTION TOK_PERIOD
+				record_entry_block
+	;
+
+communication_section::=  TOK_COMMUNICATION TOK_SECTION TOK_PERIOD
+                          
+        ;
+
+report_section::=         TOK_REPORT TOK_SECTION TOK_PERIOD
+                          
+        ;
+
+screen_section::=		TOK_SCREEN TOK_SECTION TOK_PERIOD
+			screen_field_list
+	;
+screen_field_list::=	screen_field screen_field_list_pl
+	;
+screen_field_list_pl::=	screen_field_list
+	|
+	;
+screen_field::=	integer			
+		optional_field_name
+		field_def_list
+		TOK_PERIOD		
+	;
+optional_field_name::=	TOK_IDENTIFIER:e {: System.out.println("\n OPTIONAL_FIELD_NAME"+" : "+e+"\n"); Yylex.tablaSimbolos.replaceTipe((String) e, "OPTIONAL_FIELD_NAME"); :}	
+	|
+	;
+field_def_list::=		field_def_clause field_def_list
+	|
+	;
+field_def_clause::=	TOK_LINE integer	
+	|		TOK_COLUMN integer	
+	|		TOK_FOREGROUND_COLOR integer 
+	|		TOK_BACKGROUND_COLOR integer 
+	|		TOK_VALUE optional_is value  
+	|		TOK_PICTURE optional_is pic_text 
+	|		src_var_word TOK_IDENTIFIER	     
+	|		TOK_HIGHLIGHT		
+	|		TOK_REVERSE_VIDEO	
+	|		TOK_BLINK		
+	|		TOK_UNDERLINE	
+	|		TOK_BLANK TOK_SCREEN	
+	;
+src_var_word::=		TOK_FROM
+	|		TOK_USING
+	;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+procedure_division::=	
+	TOK_PROCEDURE TOK_DIVISION using_option TOK_PERIOD
+			statement_list
+	|	error:e	{: System.err.println("ERROR"); :}
+	;
+
+using_option::=	TOK_USING using_id_list
+	|
+	;
+statement_list::=		statement statement_list
+	|
+	;
+statement::=	clause TOK_PERIOD
+	|	if_clause TOK_PERIOD
+	|	TOK_PROCEDURE TOK_IDENTIFIER:e TOK_PERIOD	 
+	|	TOK_INITIALIZE initialize_args TOK_PERIOD 
+    |   TOK_REPLACE TOK_OFF TOK_PERIOD
+	|	TOK_READ TOK_IDENTIFIER 
+		optional_word_record
+		optional_at_end_clause
+		TOK_PERIOD
+	|	TOK_IDENTIFIER id_statement 
+	;
+id_statement::=	TOK_PERIOD
+	|	TOK_SECTION TOK_PERIOD
+	;
+
+if_clause::=	TOK_IF boolean_list if_args
+	;
+if_args::=	optional_then compound_clause if_args_end
+	;
+if_args_end::=	TOK_ELSE  optional_then compound_clause
+	|
+	;
+
+boolean_list::=	boolean boolean_list_pl
+	;
+
+boolean_list_pl::=	logic_connector boolean_list
+	|
+	;
+
+boolean::=	optional_lparen expression optional_is boolean2 
+		optional_rparen 
+        ;
+
+boolean2::=           TOK_ALPHABETIC
+        |           TOK_ALPHABETIC_UPPER
+        |           TOK_ALPHABETIC_LOWER
+        |           relational
+                      expression
+	|	
+        ;
+	
+not_boolean_list::=	not_boolean not_boolean_list_pl
+	;
+
+not_boolean_list_pl::=	logic_connector not_boolean_list
+	|
+	;
+
+not_boolean::=	optional_lparen expression optional_is not_boolean2 
+		optional_rparen 
+        ;
+
+not_boolean2::=	reverse_relational expression
+	|	
+        ;
+                    
+
+logic_connector::=	TOK_AND
+	|		TOK_OR
+	;
+
+relational::=	TOK_GREATER optional_than
+	|	TOK_LESS optional_than	
+	|	TOK_EQUAL optional_to
+        |       TOK_GREATER_EQ
+        |       TOK_LESS_EQ 
+              
+	|	TOK_NOT reverse_relational
+	;
+
+reverse_relational::=	TOK_GREATER optional_than
+		
+	|	TOK_LESS optional_than
+		
+	|	TOK_EQUAL optional_to
+		
+        |       TOK_GREATER_EQ 
+                
+        |       TOK_LESS_EQ 
+                
+	;
+
+clause::=		TOK_ACCEPT accept_args accept_option 
+	|	TOK_DISPLAY display_args upon_option
+	|	TOK_MOVE expression TOK_TO id_list 
+	|	TOK_ADD expression TOK_TO id_list giving_option
+		
+	|	TOK_SUBTRACT expression TOK_FROM id_list giving_option
+		
+	|	TOK_MULTIPLY id_list TOK_BY expression giving_option
+		
+	|	TOK_COMPUTE  TOK_IDENTIFIER round_option TOK_EQUAL 	
+		
+		compute_expr_list
+		
+	|	TOK_GO TOK_TO TOK_IDENTIFIER  
+	|	TOK_PERFORM TOK_IDENTIFIER perform_options end_perform
+	|	TOK_OPEN open_list
+	|	TOK_CLOSE id_list close_options 
+	|	TOK_WRITE TOK_IDENTIFIER write_from_clause write_options
+		
+	|	TOK_REWRITE TOK_IDENTIFIER write_from_clause 
+	
+    |   TOK_CALL call_list using_options 
+	|	TOK_STOP TOK_RUN 
+    |   TOK_EXIT TOK_PROGRAM 
+	|	TOK_DIVIDE id_list divide_action_word expression giving_option round_option size_error_option
+	;
+
+optional_at_end_clause::=	TOK_AT TOK_END compound_clause
+	|	
+	;
+	
+clause_list::=	clause clause_list_pl
+	|	if_clause TOK_END_IF clause_list_pl
+	//|	if_clause
+	;
+	
+	compound_clause::=	
+			clause_list
+	;
+	
+clause_list_pl::=	clause_list
+	|
+	;
+
+expression::=	TOK_IDENTIFIER
+	|	integer
+	|	float
+	|	string
+	;
+
+accept_args::=
+		optional_at
+		id_list
+	;
+
+accept_option::=  TOK_FROM from_arg
+        | 
+        ;
+
+from_arg::=       TOK_DATE 
+        |       TOK_DAY 
+        |       TOK_DAY_OF_WEEK 
+        |       TOK_TIME 
+	|	TOK_CONSOLE 
+        ;
+
+display_args::=	 optional_at
+		 optional_all
+		display_args_marked
+	;
+optional_at::=	TOK_LPAREN integer TOK_COMMA integer TOK_RPAREN
+	|
+	;
+display_args_marked::=	display_arg display_args_pl
+	;
+display_args_pl::= optional_comma	display_args_marked
+	|
+	;
+display_arg::=	TOK_IDENTIFIER:e {: Yylex.tablaSimbolos.checkIdentifier((String) e); :}
+	|	string
+	|	integer
+	|	float
+    |       TOK_QUOTE 
+	;
+
+upon_option::=	TOK_UPON TOK_IDENTIFIER 
+	|	
+	;
+
+giving_option::=	TOK_GIVING TOK_IDENTIFIER
+	|	
+	;
+
+round_option::=	TOK_ROUNDED 
+	|
+	;
+
+size_error_option::=	TOK_ON TOK_SIZE TOK_ERROR 
+			
+			compound_clause TOK_PERIOD
+	|
+	;
+
+perform_options::=	thru_option times_option varying_option
+	;
+thru_option::=	TOK_THRU TOK_IDENTIFIER
+	|	
+	;
+end_perform::=	TOK_UNTIL
+		 not_boolean_list
+		
+	| 	
+	;
+times_option::=	integer TOK_TIMES
+	|	
+	;
+varying_option::=		TOK_VARYING loop_condition after_list
+	|
+	;
+after_list::=	TOK_AFTER loop_condition after_list
+	|
+	;
+loop_condition::=	
+		TOK_IDENTIFIER 
+		TOK_FROM loop_iterator
+		loop_condition_part2
+	;
+loop_condition_part2::= 	TOK_TO loop_iterator
+			
+			by_option
+			
+	|	by_option
+		loop_condition_part3
+		
+	;
+loop_condition_part3::= 	TOK_WHILE boolean_list
+	|		TOK_UNTIL not_boolean_list
+	;
+by_option::=	TOK_BY loop_iterator
+	|	
+	;
+loop_iterator::=	TOK_IDENTIFIER
+	|	integer
+	;
+
+compute_expr_list::=	compute_expr compute_expr_list_pl
+	|		compute_term
+	;
+compute_expr_list_pl::=	compute_expr_list
+	|
+	;
+compute_expr::=	compute_term compute_operator
+	|	compute_operator
+	;
+compute_term::=	TOK_IDENTIFIER
+	|	integer
+	|	float
+	;
+compute_operator::=	TOK_PLUS	
+			
+	|		TOK_MINUS
+			
+	|		TOK_ASTERISK
+			
+	|		TOK_SLASH
+			
+	|		TOK_LPAREN
+			
+	|		TOK_RPAREN
+			
+	;
+
+open_list::=	open_entry open_list_pl
+	;
+open_list_pl::=	open_list
+	|
+	;
+open_entry::=	TOK_INPUT id_list open_options 
+	|	TOK_OUTPUT id_list open_options
+	|	TOK_EXTEND id_list open_options
+	|	TOK_I_O id_list open_options 
+	;
+
+open_options::=	TOK_REVERSED
+	|	TOK_WITH TOK_NO TOK_REWIND
+	|
+	;
+
+close_options::=	TOK_UNIT close_method
+	|	TOK_REEL close_method
+	|	TOK_WITH TOK_LOCK
+	|
+	;
+
+close_method::=	TOK_FOR TOK_REMOVAL
+	|	TOK_WITH TOK_NO TOK_REWIND
+	;
+
+write_from_clause::=	TOK_FROM TOK_IDENTIFIER
+	|	
+	;
+write_options::=	TOK_AFTER TOK_ADVANCING loop_iterator TOK_LINES
+	|	
+	;
+
+call_list::= 	string
+         |	TOK_IDENTIFIER
+         ;
+
+using_options::=	TOK_USING using_id_list
+        | 
+        ;
+using_id_list::=	TOK_IDENTIFIER using_id_list_pl
+		|	TOK_BY TOK_REFERENCE using_id_list
+    	|	TOK_BY TOK_CONTENT using_id_list
+        ;
+using_id_list_pl::=	TOK_COMMA using_id_list
+	|		using_id_list
+        |
+        ;
+
+initialize_args::=	using_id_list replace_option
+	;
+
+replace_option::=		TOK_REPLACING replace_next
+	|
+	;
+
+replace_next::=		replace_what optional_data TOK_BY value replace_next_pl
+        ;
+
+replace_next_pl::=	optional_comma replace_next	
+        |
+	;
+
+replace_what::=	TOK_ALPHABETIC
+	|	TOK_ALPHANUMERIC
+	|	TOK_NUMERIC
+	|	TOK_ALPHANUMERIC_EDITED
+	|	TOK_NUMERIC_EDITED
+	;
+
+id_list::= id_list_marked
+	;
+id_list_marked::= TOK_IDENTIFIER id_list_pl
+	;
+id_list_pl::=	optional_comma id_list_marked
+	|
+	;
+
+word_list::=	TOK_IDENTIFIER:e 
+			{: System.out.println("\nTOK_IDENTIFIER " + e +"\n");
+				Yylex.tablaSimbolos.replaceTipe((String) e);
+			:} 
+			word_list_pl
+					
+	|	TOK_INTEGER word_list_pl
+	|	TOK_FLOAT word_list_pl
+	|	TOK_STRING word_list_pl
+	|	TOK_SLASH word_list_pl
+	;
+word_list_pl::=	word_list
+	|
+	;
+
+divide_action_word::=	TOK_BY
+	|		TOK_INTO
+	;
+
+optional_is::=		TOK_IS
+	|		TOK_ARE
+	|
+	;
+optional_comma::=		TOK_COMMA
+	|
+	;
+optional_word_record::=	TOK_RECORD
+	|
+	;
+optional_to::=            TOK_TO
+        |
+        ;
+optional_all::=           TOK_ALL
+        |
+        ;
+optional_than::=          TOK_THAN
+        |
+        ;
+optional_then::=          TOK_THEN
+        |
+        ;
+optional_optional::=      TOK_OPTIONAL
+        |
+        ;
+optional_by::=            TOK_BY
+        |
+        ;
+optional_mode::=          TOK_MODE
+        |
+        ;
+optional_file::=          TOK_FILE
+        |
+        ;
+optional_key::=           TOK_KEY
+        |
+        ;
+optional_sign::=		TOK_SIGN
+	|
+	;
+optional_character::=	TOK_CHARACTER
+        |
+        ;
+optional_size::=		TOK_SIZE
+	|
+	;
+optional_program::=	TOK_PROGRAM
+	|
+	;
+optional_with::=		TOK_WITH
+	|
+	;
+optional_right::=		TOK_RIGHT
+	|
+	;
+optional_data::=		TOK_DATA
+	|
+	;
+optional_lparen::=	TOK_LPAREN
+	|
+	;
+optional_rparen::=	TOK_RPAREN
+	|
+	;
+optional_times::=         TOK_TIMES
+        |
+        ;
+pic_text::=	TOK_PIC_TEXT:e {: 
+									System.out.println("\n TOK_PIC_TEXT"+" : "+e+"\n");
+									Yylex.tablaSimbolos.replaceTipeLastSymbol("TOK_PIC_TEXT", (String) e); 
+									:}
+	;
+string::=		TOK_STRING
+	;
+integer::=	TOK_INTEGER 
+	;
+float::=		TOK_FLOAT 
+	;
+
+	

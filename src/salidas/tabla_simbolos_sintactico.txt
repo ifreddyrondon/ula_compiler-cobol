@@ -1,0 +1,10 @@
+Hello-World= Tipo: TOK_PROGRAM_ID
+Intel= Tipo: TOK_SOURCE_COMPUTER
+Motorola= Tipo: TOK_OBJECT_COMPUTER
+address= Tipo: TOK_IDENTIFIER
+house= Tipo: entero, Valor: 504, NumChar: 6
+test-program= Tipo: TOK_PROGRAM_ID
+varx= Tipo: TOK_IDENTIFIER
+vary= Tipo: entero, Valor: null, NumChar: 9
+varz= Tipo: entero, Valor: 60, NumChar: 5
+
