@@ -1,6 +1,6 @@
 # Compilador Cobol
 
-### [Compilador Cobol- web](http://spantons.github.io/Compilador_Cobol)
+### [Compilador Cobol- WEB](http://spantons.github.io/Compilador_Cobol)
 
 **Diseño e implementación de un compilador para un subconjunto del lenguaje de programación COBOL en Java**
 
