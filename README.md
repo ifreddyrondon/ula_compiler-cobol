@@ -14,8 +14,10 @@ Debes tener instalado el [JRE](http://www.java.com/es/download/) que es el entor
  1. Solo debes ejecutar el archivo **Cobolito.jar** dentro de la carpeta raíz 
 
 ## ScreenShots
-![Main](https://dl.dropbox.com/s/l7zxxomi81ibsot/Captura%20de%20pantalla%202013-10-23%20a%20la%28s%29%2023.59.20.png)
 
-![Análisis Léxico](https://dl.dropbox.com/s/z2nag0ln9d0w5jw/Captura%20de%20pantalla%202013-10-24%20a%20la%28s%29%2000.01.09.png)
+![image](https://user-images.githubusercontent.com/3026639/68531514-a82b3800-02f1-11ea-9245-fec92cda9b41.png)
 
-![Análisis sintáctico y semantico](https://dl.dropbox.com/s/3bzmtjh6yhvc0tq/Captura%20de%20pantalla%202013-10-24%20a%20la%28s%29%2000.00.54.png)
+![image](https://user-images.githubusercontent.com/3026639/68531524-bda06200-02f1-11ea-927b-abdffcab7a71.png)
+
+![image](https://user-images.githubusercontent.com/3026639/68531526-c7c26080-02f1-11ea-948b-18eac5d5174b.png)
+
